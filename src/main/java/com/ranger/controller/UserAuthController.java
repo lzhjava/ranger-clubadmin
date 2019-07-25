@@ -29,7 +29,7 @@ public class UserAuthController {
     @PostMapping("/phoneLogin")
     public ResultVO phoneLogin(@RequestParam(value = "phone", required = true)String phone,
                                @RequestParam(value = "password", required = true)String password,
-                               @RequestParam(required = false, defaultValue = "1")  Integer platform){
+                               @RequestParam(required = false, defaultValue = "2")  Integer platform){
        return userAuthApi.phoneLogin(phone,password,platform);
     }
 
