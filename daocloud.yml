@@ -7,5 +7,5 @@ build:
       build_dir: /
       cache: true
     extract:
-      - app.jar
+      - clubadmin.jar
 
