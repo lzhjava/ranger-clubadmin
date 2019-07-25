@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @brief:
  */
 @RestController
-@RequestMapping("/questions")
+@RequestMapping("/exemption/questions")
 public class QAController {
 
     @Reference(interfaceClass = QuestionsAndAnswersContract.class, timeout = 1200000)

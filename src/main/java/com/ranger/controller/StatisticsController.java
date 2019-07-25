@@ -20,7 +20,7 @@ import java.util.Map;
  * @create 2019-07-25 2:44 PM
  */
 @RestController
-@RequestMapping("/statistics")
+@RequestMapping("/exemption/statistics")
 public class StatisticsController {
 
     /**
