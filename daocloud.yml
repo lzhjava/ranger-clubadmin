@@ -1,0 +1,11 @@
+version: 2.0
+
+build:
+  lite_image:
+    compile:
+      dockerfile_path: Dockerfile
+      build_dir: /
+      cache: true
+    extract:
+      - app.jar
+
