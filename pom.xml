@@ -34,6 +34,20 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--问答服务-->
+        <dependency>
+            <groupId>com.ranger.question</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--统计服务-->
+        <dependency>
+            <groupId>com.ranger.statistics</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
