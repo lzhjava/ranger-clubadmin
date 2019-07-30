@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by caiyanying on 17/5/23.
  */
 @RestController
-@RequestMapping("/equip")
+@RequestMapping("/exemption/equip")
 public class EquipControllers {
 
     /**
