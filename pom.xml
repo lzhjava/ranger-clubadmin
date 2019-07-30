@@ -35,6 +35,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.ranger.club</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ranger.photo</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
             <version>3.4.10</version>
