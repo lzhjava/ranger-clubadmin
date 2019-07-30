@@ -1,9 +1,9 @@
 package com.ranger.config.http;
 
+import com.ranger.enums.RedisKeyEnum;
 import com.ranger.utils.RedisStringUtil;
 import com.ranger.utils.Shift;
 import com.ranger.utils.UserCode;
-import com.ranger.vo.enums.RedisKeyEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

@@ -1,4 +1,4 @@
-package com.ranger.vo.enums;
+package com.ranger.enums;
 
 /**
  * 描述:

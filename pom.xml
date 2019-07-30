@@ -34,9 +34,51 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--俱乐部服务-->
+        <dependency>
+            <groupId>com.ranger.club</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--俱乐部服务-->
+        <dependency>
+            <groupId>com.ranger.audit</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--俱乐部服务-->
+        <dependency>
+            <groupId>com.ranger.equip</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.5-SNAPSHOT</version>
+        </dependency>
+
+        <!--广告服务-->
+        <dependency>
+            <groupId>com.ranger.advert</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--帖子服务-->
+        <dependency>
+            <groupId>com.ranger.post</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--问答服务-->
         <dependency>
             <groupId>com.ranger.question</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--活动服务-->
+        <dependency>
+            <groupId>com.ranger.activity</groupId>
             <artifactId>serviceScoreContract</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
