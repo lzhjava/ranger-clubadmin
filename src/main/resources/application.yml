@@ -12,10 +12,17 @@ ranger:
 redis:
   url: ${REDIS_HOST:r-2ze5tzi6ontgfvs6igpd.redis.rds.aliyuncs.com}
   auth: ${REDIS_AUTH:5Mg5EhMvKg9Knv9Gnm0d}
+qiniu:
+  accessKey: hAr7ttsrGWq-GL5qRea6ApmvIuLmbmu2jkj09fSW
+  secretKey: uaY-42qUeEFpaLAiotjB9VgYn6X65cqAsvxCQsVi
+  bucket:
+    img: acegear-img
+  bucketUrl:
+    img: https://img.acegear.com/
+horizon:
+  api: ${HORIZON_API:https://api2.acegear.cn/}
 
 ---
-
-
 
 
 
