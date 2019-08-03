@@ -47,6 +47,8 @@ public class UserAuthController {
                                @RequestParam(value = "password", required = true)String password,
                                @RequestParam(required = false, defaultValue = "2")  Integer platform){
 
+        System.out.println("——————————————————进入俱乐部后台服务————————————————");
+
         ResultVO resultVO = userAuthApi.phoneLogin(phone, password, platform);
 
         Object body = JSONObject.parseObject(JSONObject.toJSONString(resultVO)).get("body");
