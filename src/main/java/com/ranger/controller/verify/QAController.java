@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.question.contract.QuestionsAndAnswersContract;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @brief:
  */
 @RestController
-@RequestMapping("/exemption/questions")
+@RequestMapping("/verify/questions")
 public class QAController {
 
     @Reference(interfaceClass = QuestionsAndAnswersContract.class, timeout = 1200000)

@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.equip.contract.*;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by caiyanying on 17/5/23.
  */
 @RestController
-@RequestMapping("/exemption/equip")
+@RequestMapping("/verify/equip")
 public class EquipControllers {
 
     /**

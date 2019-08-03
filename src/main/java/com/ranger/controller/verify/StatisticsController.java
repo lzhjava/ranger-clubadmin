@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.statistics.contract.ClubVisitStatisticsContract;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @create 2019-07-25 2:44 PM
  */
 @RestController
-@RequestMapping("/exemption/statistics")
+@RequestMapping("/verify/statistics")
 public class StatisticsController {
 
     /**

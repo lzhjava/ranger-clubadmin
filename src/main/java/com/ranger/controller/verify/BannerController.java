@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.activity.contract.ActivityContract;
@@ -30,7 +30,7 @@ import java.util.List;
  * @create 2019-07-26 11:17 AM
  */
 @RestController
-@RequestMapping("/exemption/banner")
+@RequestMapping("/verify/banner")
 public class BannerController {
 
     @Reference(interfaceClass = BannerContract.class, timeout = 1200000)

@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.equip.contract.SeniorMemberContrant;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/6/10下午5:07
  */
 @RestController
-@RequestMapping("/seniorMember")
+@RequestMapping("/verify/seniorMember")
 public class SeniorMemberController {
 
 
