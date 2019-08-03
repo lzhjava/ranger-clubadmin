@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.activity.contract.ActivityContract;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @create 2019-08-02 2:14 PM
  */
 @RestController
-@RequestMapping("/exemption/recommend")
+@RequestMapping("/verify/recommend")
 public class RecommendController {
 
     @Reference(interfaceClass = WechatLiteRecommendContract.class, timeout = 1200000)

@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.activity.contract.PostVotePartyContract;
@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by caiyanying on 17/5/23.
  */
 @RestController
-@RequestMapping("/exemption/vote")
+@RequestMapping("/verify/exemption/vote")
 public class VoteControllers {
 
 

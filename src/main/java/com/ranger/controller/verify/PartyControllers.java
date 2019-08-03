@@ -1,4 +1,4 @@
-package com.ranger.controller;
+package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.activity.contract.PartyContract;
@@ -23,7 +23,7 @@ import java.util.*;
  * Created by caiyanying on 17/5/23.
  */
 @RestController
-@RequestMapping("/exemption/party")
+@RequestMapping("/verify/party")
 public class PartyControllers {
 
     @Reference(interfaceClass = PartyStatisticsContract.class, timeout = 1200000)
