@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by caiyanying on 17/5/23.
  */
 @RestController
-@RequestMapping("/verify/exemption/vote")
+@RequestMapping("/verify/vote")
 public class VoteControllers {
 
 
@@ -51,10 +51,10 @@ public class VoteControllers {
      * @return
      */
     @PostMapping("")
-    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
+    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue = "38617") Long userId,
                              @RequestBody VoteDTO voteDTO) {
 
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -68,7 +68,7 @@ public class VoteControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(voteDTO.getClubId());
-        if (clubBaseDTO !=null) {
+        if (clubBaseDTO ==null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
@@ -87,7 +87,7 @@ public class VoteControllers {
     @PutMapping("")
     public Object updateVote(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
                              @RequestBody VoteDTO voteDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -101,7 +101,7 @@ public class VoteControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(voteDTO.getClubId());
-        if (clubBaseDTO !=null) {
+        if (clubBaseDTO ==null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
