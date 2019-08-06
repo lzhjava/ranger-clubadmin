@@ -1,5 +1,5 @@
 server:
-  port: 8112
+  port: 8133
 zookeeper: ${ZOOKEEPER_URL:localhost:2181}
 
 ranger:
