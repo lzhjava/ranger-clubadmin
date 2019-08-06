@@ -29,6 +29,12 @@ public class KongService {
     @Value("${ranger.server}")          //空网关注册的服务地址
     private String rangerServer;
 
+    @Value("${ranger.name}")          //空网关注册的服务地址
+    private String rangerName;
+
+    @Value("${ranger.host}")          //空网关注册的服务地址
+    private String rangerHost;
+
     @Value("${server.port}")          //服务端口
     private String rangerPort;
 
@@ -57,12 +63,13 @@ public class KongService {
     public HttpResponse<JsonNode> addRoute(String apiName) {
         try {
             HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + kongName + "-" + apiName)
-                    .field("name",  kongName + "-" + apiName)
-                    .field("hosts", "")
+                    .field("name",  rangerName + "-" + apiName)
+                    .field("hosts", rangerHost)
                     .field("paths", "/"+apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)
                     .asJson();
+
             if("verify".equals(apiName)){
                 addJwt(response.getBody().getObject().getString("id"),"verify");
             }

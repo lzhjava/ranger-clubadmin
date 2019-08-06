@@ -53,9 +53,9 @@ public class PartyControllers {
      * @return
      */
     @PostMapping("")
-    public Object insertParty(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
+    public Object insertParty(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue ="38617") Long userId,
                               @RequestBody PartyDTO partyDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -69,7 +69,7 @@ public class PartyControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(partyDTO.getClubId());
-        if (clubBaseDTO !=null) {
+        if (clubBaseDTO ==null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
@@ -88,7 +88,7 @@ public class PartyControllers {
     @PutMapping("")
     public Object updateParty(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
                               @RequestBody PartyDTO partyDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -102,7 +102,7 @@ public class PartyControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(partyDTO.getClubId());
-        if (clubBaseDTO !=null) {
+        if (clubBaseDTO ==null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
@@ -278,7 +278,11 @@ public class PartyControllers {
                      * resultMap格式为:key:开始日期~结束日期,value:用户信息列表
                      */
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    resultMap.put(simpleDateFormat.format(partyVO.getStartTime())+" ~ "+simpleDateFormat.format(partyVO.getEndTime()), userInfoApi.selectUserInfos(userIds));
+                    List<UserInfoVO> userInfoVOS = userInfoApi.selectUserInfos(userIds);
+                    if (userInfoVOS ==null){
+                        userInfoVOS = new ArrayList<>();
+                    }
+                    resultMap.put(simpleDateFormat.format(partyVO.getStartTime()).toString()+" ~ "+simpleDateFormat.format(partyVO.getEndTime()).toString(),userInfoVOS);
                     return new ResultVO(resultMap);
                 }
             }
