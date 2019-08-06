@@ -31,6 +31,13 @@ public class InitBean {
             List<String> apis = Arrays.asList("verify", "exemption");
 
             apis.forEach(apiName -> {
+//            if (kongService.selectRoute(apiName)) {
+//                kongService.deleteRoute(apiName);
+//            }
+                kongService.addRoute(apiName);
+            });
+
+            /*apis.forEach(apiName -> {
                 HttpResponse<JsonNode> response = kongService.addRoute(apiName);
                 if (!ObjectUtils.nullSafeEquals(null,response)){
                     HttpResponse<JsonNode> jsonNodeHttpResponse1 = kongService.addCorsConfig(apiName);
@@ -38,7 +45,7 @@ public class InitBean {
                         kongService.addCors(response.getBody().getObject().getString("id"));
                     }
                 }
-            });
+            });*/
         } catch (Exception e) {
             e.printStackTrace();
         }

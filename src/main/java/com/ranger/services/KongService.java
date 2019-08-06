@@ -48,36 +48,36 @@ public class KongService {
 
     public void addService(){
         try {
-            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/services/" + kongName)
-                    .field("name", kongName)
+            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/services/" + rangerName)
+                    .field("name", rangerName)
                     .field("host", rangerServer)
                     .field("port", rangerPort)
                     .asJson();
-            serviceId = response.getBody().getObject().getString("id");
-        } catch (Exception e) {
+//            }
+            org.json.JSONObject body = response.getBody().getObject();
+            serviceId = body.getString("id");
+        } catch (UnirestException | JSONException e) {
             e.printStackTrace();
         }
     }
 
 
-    public HttpResponse<JsonNode> addRoute(String apiName) {
+
+    public void addRoute(String apiName) {
         try {
-            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + kongName + "-" + apiName)
+            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + rangerName + "-" + apiName)
                     .field("name",  rangerName + "-" + apiName)
                     .field("hosts", rangerHost)
-                    .field("paths", "/"+apiName)
+                    .field("paths", "/" + apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)
                     .asJson();
-
             if("verify".equals(apiName)){
                 addJwt(response.getBody().getObject().getString("id"),"verify");
             }
-            return response;
-        } catch (Exception e) {
+        } catch (UnirestException | JSONException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
 
