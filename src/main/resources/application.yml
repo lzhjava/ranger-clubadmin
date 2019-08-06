@@ -4,13 +4,12 @@ zookeeper: ${ZOOKEEPER_URL:localhost:2181}
 
 ranger:
   server: ${RANGER_SERVER:ranger-clubadmin.ranger-test-app.svc.cluster.local}        #空网关注册的服务地址   (注意需注入k8s地址，否则找不到服务)
-  name: ${HORIZON_NAME:ranger-clubadmin}
-  host: ${HORIZON_HOST:testclub.acegear.com}
   kong:
     server: ${KONG_SERVER:http://testkong.acegear.com}   #空网关地址
     name: ${KONG_NAME:ranger-clubadmin}     #空网关注册服务名称（项目名）
     enable: ${KONG_ENABLE:true}
     cors: ${KONG_CORS:http://testcms.acegear.com}     #容许跨域地址   目前为*
+
 redis:
   url: ${REDIS_HOST:r-2ze5tzi6ontgfvs6igpd.redis.rds.aliyuncs.com}
   auth: ${REDIS_AUTH:5Mg5EhMvKg9Knv9Gnm0d}
