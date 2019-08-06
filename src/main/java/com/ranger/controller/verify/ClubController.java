@@ -98,7 +98,7 @@ public class ClubController {
      */
     @GetMapping("/{clubId}")
     public ResultVO clubInfo(@PathVariable Long clubId) {
-        return  clubContract.clubInfo(clubId);
+        return  clubContract.clubInfo(clubId,null);
     }
 
 
