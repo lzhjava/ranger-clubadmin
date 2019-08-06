@@ -1,6 +1,7 @@
 package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.ranger.activity.contract.ActivityContract;
 import com.ranger.activity.contract.PostVotePartyContract;
 import com.ranger.activity.enums.PostVotePartyType;
 import com.ranger.activity.vo.PostVotePartyVO;
@@ -24,6 +25,9 @@ public class HotdiscussController {
 
     @Reference(timeout = 1200000)
     private PostVotePartyContract postVotePartyContract;
+
+    @Reference(interfaceClass = ActivityContract.class, timeout = 1200000)
+    private ActivityContract activityContract;
 
     @Reference(interfaceClass = PostContract.class, timeout = 1200000)
     private PostContract postContract;
@@ -79,7 +83,7 @@ public class HotdiscussController {
         if (feedType == FeedType.POST){
           return  postContract.selectPostContentById(relationId);
         }else if (feedType == FeedType.EVENT){
-
+            return activityContract.queryActivityContent(relationId);
         }
         return null;
     }
