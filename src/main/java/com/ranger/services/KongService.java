@@ -29,12 +29,6 @@ public class KongService {
     @Value("${ranger.server}")          //空网关注册的服务地址
     private String rangerServer;
 
-    @Value("${ranger.name}")          //空网关注册的服务地址
-    private String rangerName;
-
-    @Value("${ranger.host}")          //空网关注册的服务地址
-    private String rangerHost;
-
     @Value("${server.port}")          //服务端口
     private String rangerPort;
 
@@ -48,12 +42,12 @@ public class KongService {
 
     public void addService(){
         try {
-            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/services/" + rangerName)
-                    .field("name", rangerName)
+            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/services/" + kongName)
+                    .field("name", kongName)
                     .field("host", rangerServer)
                     .field("port", rangerPort)
                     .asJson();
-//            }
+
             org.json.JSONObject body = response.getBody().getObject();
             serviceId = body.getString("id");
         } catch (UnirestException | JSONException e) {
@@ -62,12 +56,12 @@ public class KongService {
     }
 
 
+    public HttpResponse<JsonNode> addRoute(String apiName) {
 
-    public void addRoute(String apiName) {
         try {
-            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + rangerName + "-" + apiName)
-                    .field("name",  rangerName + "-" + apiName)
-                    .field("hosts", rangerHost)
+            HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + kongName + "-" + apiName)
+                    .field("name",  kongName + "-" + apiName)
+                    .field("hosts", "")
                     .field("paths", "/" + apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)
@@ -75,9 +69,12 @@ public class KongService {
             if("verify".equals(apiName)){
                 addJwt(response.getBody().getObject().getString("id"),"verify");
             }
+            return response;
+
         } catch (UnirestException | JSONException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
