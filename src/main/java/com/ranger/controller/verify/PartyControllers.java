@@ -278,7 +278,11 @@ public class PartyControllers {
                      * resultMap格式为:key:开始日期~结束日期,value:用户信息列表
                      */
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    resultMap.put(simpleDateFormat.format(partyVO.getStartTime())+" ~ "+simpleDateFormat.format(partyVO.getEndTime()), userInfoApi.selectUserInfos(userIds));
+                    List<UserInfoVO> userInfoVOS = userInfoApi.selectUserInfos(userIds);
+                    if (userInfoVOS ==null){
+                        userInfoVOS = new ArrayList<>();
+                    }
+                    resultMap.put(simpleDateFormat.format(partyVO.getStartTime()).toString()+" ~ "+simpleDateFormat.format(partyVO.getEndTime()).toString(),userInfoVOS);
                     return new ResultVO(resultMap);
                 }
             }
