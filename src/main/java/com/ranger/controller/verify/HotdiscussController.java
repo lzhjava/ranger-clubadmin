@@ -88,4 +88,26 @@ public class HotdiscussController {
         return null;
     }
 
+    /**
+     * 热议置顶
+     * @param relationId
+     * @param postVotePartyType
+     * @return
+     */
+    @PutMapping("/{relationId}/top")
+    public Object topData(@PathVariable Long relationId, PostVotePartyType postVotePartyType) {
+       return postVotePartyContract.topData(relationId, postVotePartyType);
+    }
+
+    /**
+     * 热议取消置顶
+     * @param relationId
+     * @param postVotePartyType
+     * @return
+     */
+    @PutMapping("/{relationId}/unTop")
+    public Object untopData(@PathVariable Long relationId, PostVotePartyType postVotePartyType) {
+        return postVotePartyContract.untopData(relationId, postVotePartyType);
+    }
+
 }
