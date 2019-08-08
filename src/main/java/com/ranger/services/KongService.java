@@ -38,6 +38,10 @@ public class KongService {
     @Value("${ranger.kong.cors}")     //#容许跨域地址   目前为*
     private String kongCors;
 
+    @Value("${ranger.kong.host}")     //#容许访问的host
+    private String kongHost;
+
+
     private static String serviceId = "";
 
     public void addService(){
@@ -61,7 +65,7 @@ public class KongService {
         try {
             HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + kongName + "-" + apiName)
                     .field("name",  kongName + "-" + apiName)
-                    .field("hosts", "")
+                    .field("hosts", kongHost)
                     .field("paths", "/" + apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)
