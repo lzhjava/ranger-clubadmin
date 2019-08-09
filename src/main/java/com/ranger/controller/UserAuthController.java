@@ -52,6 +52,9 @@ public class UserAuthController {
         ResultVO resultVO = userAuthApi.phoneLogin(phone, password, platform);
 
         Object body = JSONObject.parseObject(JSONObject.toJSONString(resultVO)).get("body");
+        if (ObjectUtils.nullSafeEquals(null,body)){
+            return resultVO.USER_RIGHTS_ERROR;
+        }
         Object userId = JSONObject.parseObject(JSONObject.toJSONString(body)).get("userId");
         List<ClubDTO> clubDTOS = clubContract.searchClubsByUserId(Long.valueOf(String.valueOf(userId)), ClubMemberType.FOUNDER);
         if (ObjectUtils.nullSafeEquals(0,clubDTOS.size())){
