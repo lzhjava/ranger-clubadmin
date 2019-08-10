@@ -41,6 +41,9 @@ public class KongService {
     @Value("${ranger.kong.host}")     //#容许访问的host
     private String kongHost;
 
+    @Value("${ranger.kong.web}")     //#容许访问的host
+    private String kongWeb;
+
 
     private static String serviceId = "";
 
@@ -66,6 +69,7 @@ public class KongService {
             HttpResponse<JsonNode> response = Unirest.put(kongServer + "/routes/" + kongName + "-" + apiName)
                     .field("name",  kongName + "-" + apiName)
                     .field("hosts", kongHost)
+                    .field("hosts", kongWeb)
                     .field("paths", "/" + apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)

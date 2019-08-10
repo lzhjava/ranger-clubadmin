@@ -9,7 +9,9 @@ ranger:
     name: ${KONG_NAME:ranger-clubadmin}     #空网关注册服务名称（项目名）
     enable: ${KONG_ENABLE:true}
     cors: ${KONG_CORS:http://testcms.acegear.com}     #容许跨域地址   目前为*
-    host: ${KONG_HOST:testclub.acegear.com,test-clubadmin.acegear.com}   # 容许访问的host
+    host: ${KONG_HOST:testclub.acegear.com}   # 容许访问的host
+    web: ${KONG_WEB:test-clubadmin.acegear.com}       # 容许访问的host（web域名）
+
 
 redis:
   url: ${REDIS_HOST:r-2ze5tzi6ontgfvs6igpd.redis.rds.aliyuncs.com}
