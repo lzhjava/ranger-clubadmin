@@ -23,13 +23,13 @@ public class QAController {
 
     /**
      * 俱乐部问答获取可展示的问答列表
+     *
      * @return
      */
     @GetMapping("")
-    public ResultVO selectAllQuestions(){
+    public ResultVO selectAllQuestions() {
         return QAContract.selectAllQuestions();
     }
-
 
 
 }
