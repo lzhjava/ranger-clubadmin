@@ -323,7 +323,7 @@ public class ActivityController {
      */
     @GetMapping("/{activityId}/getStageAndGroupAndGood")
     public ResultVO getStageAndGroupAndGood(@PathVariable Long activityId) {
-        return activityContract.getStageAndGroupAndGood(activityId,null);
+        return activityContract.getStageAndGroupAndGood(activityId, null);
     }
 
     /**
