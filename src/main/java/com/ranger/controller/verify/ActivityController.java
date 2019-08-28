@@ -134,7 +134,7 @@ public class ActivityController {
                     count = resultVO.getBody();
                 }
             }
-            ResultVO<List<ActivityVO>> activityVOS = activityContract.selectActivity(clubId, activityId, keyword, null, page, size, startTime, endTime, sortBy, order);
+            ResultVO<List<ActivityVO>> activityVOS = activityContract.selectActivity(activityId, clubId, keyword, null, page, size, startTime, endTime, sortBy, order);
             if (activityVOS != null) {
                 resultList = activityVOS.getBody();
             }
@@ -145,7 +145,7 @@ public class ActivityController {
                     count = resultVO.getBody();
                 }
             }
-            ResultVO<List<ActivityVO>> activityVOS = activityContract.selectActivityDraft(clubId, activityId, keyword, null, page, size, startTime, endTime, sortBy, order);
+            ResultVO<List<ActivityVO>> activityVOS = activityContract.selectActivityDraft(activityId, clubId, keyword, null, page, size, startTime, endTime, sortBy, order);
             if (activityVOS != null) {
                 resultList = activityVOS.getBody();
             }
