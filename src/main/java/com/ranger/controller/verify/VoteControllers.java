@@ -51,10 +51,10 @@ public class VoteControllers {
      * @return
      */
     @PostMapping("")
-    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue = "38617") Long userId,
+    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue = "0") Long userId,
                              @RequestBody VoteDTO voteDTO) {
 
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -87,7 +87,7 @@ public class VoteControllers {
     @PutMapping("")
     public Object updateVote(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
                              @RequestBody VoteDTO voteDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
