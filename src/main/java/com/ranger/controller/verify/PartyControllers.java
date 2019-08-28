@@ -55,7 +55,7 @@ public class PartyControllers {
     @PostMapping("")
     public Object insertParty(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue ="38617") Long userId,
                               @RequestBody PartyDTO partyDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
@@ -88,7 +88,7 @@ public class PartyControllers {
     @PutMapping("")
     public Object updateParty(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
                               @RequestBody PartyDTO partyDTO) {
-        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(38617L);
+        UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
         if (userInfoVO ==null) {
             return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }

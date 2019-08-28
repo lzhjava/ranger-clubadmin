@@ -43,7 +43,6 @@ public class PostController {
     @PostMapping("")
     public ResultVO addPost(@RequestBody PostDTO postDTO) {
 
-        postDTO.setUserInfo(new UserInfo(38617L, null, null, null));
         ResultVO resultVO = postContract.addPost(postDTO);
         saveHotdiscuss(resultVO);
         return resultVO;
@@ -83,7 +82,6 @@ public class PostController {
     @PutMapping("")
     public ResultVO editPost(@RequestBody PostDTO postDTO) {
 
-        postDTO.setUserInfo(new UserInfo(38617L, null, null, null));
         ResultVO resultVO = postContract.editPost(postDTO);
         saveHotdiscuss(resultVO);
         return resultVO;
