@@ -2,12 +2,11 @@ package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.statistics.contract.ClubVisitStatisticsContract;
+import com.ranger.statistics.contract.CodeContract;
 import com.ranger.statistics.contract.MemberEnterStatisticsContract;
+import com.ranger.statistics.enums.FeedType;
 import com.ranger.statistics.vo.ResultVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,9 @@ public class StatisticsController {
      */
     @Reference(interfaceClass = MemberEnterStatisticsContract.class, timeout = 1200000)
     private MemberEnterStatisticsContract memberEnterStatisticsContract;
+
+    @Reference(interfaceClass = CodeContract.class, timeout = 1200000)
+    private CodeContract codeContract;
 
 
     /**
@@ -78,5 +80,22 @@ public class StatisticsController {
         resultMap.put("enterSevenNum", enterSevenNum);
 
         return new ResultVO(resultMap);
+    }
+
+    /**
+     * 获取活动二维码
+     *
+     * @param
+     * @return
+     */
+    @GetMapping("/getCode")
+    public com.ranger.statistics.vo.ResultVO selectByGoodsId(@RequestParam(value = "feedType", required = true) FeedType feedType,
+                                                             @RequestParam(value = "relateId", required = true) Long relateId,
+                                                             @RequestParam(value = "url", required = false, defaultValue = "index") String url,
+                                                             @RequestParam(value = "appType", required = false, defaultValue = "1") Integer appType,
+                                                             @RequestParam(value = "childrenId", required = false) Integer childrenId
+    ) {
+        return codeContract.makeCode(feedType, relateId, url, appType, childrenId);
+
     }
 }
