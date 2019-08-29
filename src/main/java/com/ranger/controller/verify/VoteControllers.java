@@ -51,12 +51,12 @@ public class VoteControllers {
      * @return
      */
     @PostMapping("")
-    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue = "0") Long userId,
+    public Object insertVote(@RequestHeader(value = "X-Consumer-Username", required = false, defaultValue = "0") Long userId,
                              @RequestBody VoteDTO voteDTO) {
 
         UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
-        if (userInfoVO ==null) {
-            return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
+        if (userInfoVO == null) {
+            return com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
 
         voteDTO.setUserId(userInfoVO.getUserId());
@@ -68,7 +68,7 @@ public class VoteControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(voteDTO.getClubId());
-        if (clubBaseDTO ==null) {
+        if (clubBaseDTO == null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
@@ -88,8 +88,8 @@ public class VoteControllers {
     public Object updateVote(@RequestHeader(value = "X-Consumer-Username", required = false) Long userId,
                              @RequestBody VoteDTO voteDTO) {
         UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
-        if (userInfoVO ==null) {
-            return  com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
+        if (userInfoVO == null) {
+            return com.ranger.user.vo.ResultVO.USER_NOT_FOUND;
         }
 
         voteDTO.setUserId(userInfoVO.getUserId());
@@ -101,7 +101,7 @@ public class VoteControllers {
         }
 
         ClubBaseDTO clubBaseDTO = clubContract.searchClubDTO(voteDTO.getClubId());
-        if (clubBaseDTO ==null) {
+        if (clubBaseDTO == null) {
             return com.ranger.club.vo.ResultVO.CLUB_NOT_FOUND;
         }
 
@@ -166,13 +166,13 @@ public class VoteControllers {
         /**
          * 获取投票详情
          */
-        VoteVO voteVO =voteContract.selectById(voteId).getBody();
+        VoteVO voteVO = voteContract.selectById(voteId).getBody();
 
         /**
          * 创建一个最终返回的map
          */
         Map resultMap = new HashMap();
-        if (voteVO!=null){
+        if (voteVO != null) {
 
             /**
              * 根据投票选项去拼接统计传过来的数量
@@ -180,36 +180,36 @@ public class VoteControllers {
             /**
              * 遍历投票详情的选项,取投票的类型(是否带图)和图片
              */
-            for (VoteItem voteItem: voteVO.getVoteItem()){
+            for (VoteItem voteItem : voteVO.getVoteItem()) {
                 Map map = new HashMap();
-                map.put("voteItemId",voteItem.getVoteItemId());
-                map.put("voteItemImage",voteItem.getVoteItemImage());
-                map.put("voteItemStr",voteItem.getVoteItemStr());
-                if (voteStatisticsVO !=null){
+                map.put("voteItemId", voteItem.getVoteItemId());
+                map.put("voteItemImage", voteItem.getVoteItemImage());
+                map.put("voteItemStr", voteItem.getVoteItemStr());
+                if (voteStatisticsVO != null) {
                     Map voteStatisticsMap = voteStatisticsVO.getVoteinfo();
                     /**
                      * 判断投票的每个选项是否有人投,如果返回来的是空就是没有人投票,默认给前台投票人数:0
                      */
-                    if (voteStatisticsMap !=null && voteStatisticsMap.size()>0){
-                        if (voteStatisticsMap.get(voteItem.getVoteItemId()) !=null){
-                            map.put("voteItemNumber",voteStatisticsMap.get(voteItem.getVoteItemId()));
-                        }else{
-                            map.put("voteItemNumber",0);
+                    if (voteStatisticsMap != null && voteStatisticsMap.size() > 0) {
+                        if (voteStatisticsMap.get(voteItem.getVoteItemId()) != null) {
+                            map.put("voteItemNumber", voteStatisticsMap.get(voteItem.getVoteItemId()));
+                        } else {
+                            map.put("voteItemNumber", 0);
                         }
-                    }else{
-                        map.put("voteItemNumber",0);
+                    } else {
+                        map.put("voteItemNumber", 0);
                     }
-                }else{
-                    resultMap.put("voteItemNumber",0);
+                } else {
+                    resultMap.put("voteItemNumber", 0);
                 }
                 resultList.add(map);
             }
-            resultMap.put("total",voteStatisticsVO.getTotal());
-            resultMap.put("optionTotal",voteStatisticsVO.getOptionTotal());
-            resultMap.put("voteItemType",voteVO.getVoteItemType());
-            resultMap.put("voteStatistics",resultList);
+            resultMap.put("total", voteStatisticsVO.getTotal());
+            resultMap.put("optionTotal", voteStatisticsVO.getOptionTotal());
+            resultMap.put("voteItemType", voteVO.getVoteItemType());
+            resultMap.put("voteStatistics", resultList);
         }
-        return new ResultVO(resultMap) ;
+        return new ResultVO(resultMap);
 
     }
 
