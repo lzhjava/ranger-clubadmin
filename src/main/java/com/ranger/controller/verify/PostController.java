@@ -41,8 +41,12 @@ public class PostController {
      * @return
      */
     @PostMapping("")
-    public ResultVO addPost(@RequestBody PostDTO postDTO) {
+    public ResultVO addPost(@RequestBody PostDTO postDTO,
+                            @RequestHeader(value = "userId", required = false) Long userId) {
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(userId);
+        postDTO.setUserInfo(userInfo);
         ResultVO resultVO = postContract.addPost(postDTO);
         saveHotdiscuss(resultVO);
         return resultVO;
