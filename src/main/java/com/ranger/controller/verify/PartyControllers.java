@@ -53,7 +53,7 @@ public class PartyControllers {
      * @return
      */
     @PostMapping("")
-    public Object insertParty(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue ="38617") Long userId,
+    public Object insertParty(@RequestHeader(value = "X-Consumer-Username", required = false,defaultValue ="0") Long userId,
                               @RequestBody PartyDTO partyDTO) {
         UserInfoVO userInfoVO = userInfoApi.searchUserInfo(userId);
         if (userInfoVO ==null) {
