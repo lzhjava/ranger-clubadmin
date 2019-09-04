@@ -7,6 +7,7 @@ import com.ranger.club.dto.ClubDTO;
 import com.ranger.club.enums.ClubMemberType;
 import com.ranger.push.contract.MessagePushContract;
 import com.ranger.user.contract.UserAuthApi;
+import com.ranger.user.contract.UserInfoApi;
 import com.ranger.user.vo.ResultVO;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,9 @@ public class UserAuthController {
 
     @Reference(interfaceClass = MessagePushContract.class, timeout = 1200000)
     private MessagePushContract messagePushContract;
+
+    @Reference(interfaceClass = UserInfoApi.class, timeout = 1200000)
+    private UserInfoApi userInfoApi;
 
 
     /**    手机号密码登陆
@@ -98,6 +102,16 @@ public class UserAuthController {
         }
     }
 
+
+    /**    用户平台所有角色
+     * @param userId   用户id
+     * @param platform   平台id
+     * @return
+     */
+    @GetMapping("/role/user")
+    public  ResultVO userRole(@RequestParam  Long userId,@RequestParam(required = false, defaultValue = "2")Integer platform){
+        return  userInfoApi.userRole(userId, platform);
+    }
 
 
 
