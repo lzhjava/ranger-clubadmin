@@ -8,6 +8,7 @@ import com.ranger.activity.vo.ActivityVO;
 import com.ranger.activity.vo.PartyVO;
 import com.ranger.activity.vo.VoteVO;
 import com.ranger.advert.contract.BannerContract;
+import com.ranger.advert.enums.FeedType;
 import com.ranger.advert.po.BannerPO;
 import com.ranger.club.contract.ClubContract;
 import com.ranger.club.dto.ClubBaseDTO;
@@ -79,6 +80,7 @@ public class BannerController {
      */
     @PostMapping
     public com.ranger.advert.vo.ResultVO saveBanner(@RequestBody BannerPO bannerPO) {
+        System.out.println(FeedType.ACTIVITY);
         return bannerContract.saveBanner(bannerPO);
     }
 
