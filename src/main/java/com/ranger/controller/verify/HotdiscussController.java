@@ -82,7 +82,7 @@ public class HotdiscussController {
     public Object getClubHotDiscuss(@PathVariable Long relationId, FeedType feedType) {
         if (feedType == FeedType.POST){
           return  postContract.selectPostContentById(relationId);
-        }else if (feedType == FeedType.EVENT){
+        }else if (feedType == FeedType.ACTIVITY){
             return activityContract.queryActivityContent(relationId);
         }
         return null;
