@@ -63,11 +63,11 @@ public class StatisticsController {
          */
         Integer visitNum = (Integer) clubVisitStatisticsContract.selectSevenStatistics(clubId).getBody();
         /**
-         * 本月的会员入驻数
+         * 本月的会员入驻总数
          */
         Integer enterNum = (Integer) memberEnterStatisticsContract.selectThisMonthStatistics(clubId).getBody();
         /**
-         * 7天会员入驻数
+         * 7天会员入驻总数
          */
         Integer enterSevenNum = (Integer) memberEnterStatisticsContract.selectSevenSumStatistics(clubId).getBody();
 
