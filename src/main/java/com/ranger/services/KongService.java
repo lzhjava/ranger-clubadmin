@@ -44,6 +44,8 @@ public class KongService {
     @Value("${ranger.kong.web}")     //#容许访问的host
     private String kongWeb;
 
+    @Value("${ranger.kong.web2}")     //#容许访问的host
+    private String kongWeb2;
 
     private static String serviceId = "";
 
@@ -70,6 +72,7 @@ public class KongService {
                     .field("name",  kongName + "-" + apiName)
                     .field("hosts", kongHost)
                     .field("hosts", kongWeb)
+                    .field("hosts", kongWeb2)
                     .field("paths", "/" + apiName)
                     .field("service.id", serviceId)
                     .field("strip_path",false)

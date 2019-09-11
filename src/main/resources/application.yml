@@ -11,6 +11,8 @@ ranger:
     cors: ${KONG_CORS:http://testcms.acegear.com}     #容许跨域地址   目前为*
     host: ${KONG_HOST:testclub.acegear.com}   # 容许访问的host
     web: ${KONG_WEB:test-clubadmin.acegear.com}       # 容许访问的host（web域名）
+    web2: ${KONG_WEB2:demo.club.acegear.com}       # 容许访问的host（web域名）
+
 
 
 redis:
