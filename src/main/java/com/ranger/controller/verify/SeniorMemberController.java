@@ -29,7 +29,7 @@ public class SeniorMemberController {
      */
     @PostMapping("")
     public ResultVO createSeniorMember(@RequestBody SeniorMemberDTO seniorMemberDTO){
-             seniorMemberDTO.getStatus();
+             //seniorMemberDTO.getStatus();
            return seniorMemberContrant.createSeniorMember(seniorMemberDTO);
     }
 
