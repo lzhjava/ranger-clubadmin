@@ -43,6 +43,7 @@ public class HotdiscussController {
      * @param size
      * @return
      */
+
     @GetMapping("/{clubId}")
     public Object getClubHotDiscuss(@PathVariable Long clubId, String title, Boolean top, PostVotePartyType type,
                                     @RequestParam(value = "page", defaultValue = "0") Integer page,
