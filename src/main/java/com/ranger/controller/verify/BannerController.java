@@ -123,7 +123,7 @@ public class BannerController {
     /**
      * @param page
      * @param size
-     * @param feedEnum
+     * @param feedEnum    类型
      * @param relateName  名称模糊
      * @param clubId
      * @return
