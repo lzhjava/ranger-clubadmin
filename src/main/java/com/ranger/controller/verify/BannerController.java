@@ -134,6 +134,7 @@ public class BannerController {
                        @RequestParam(value = "feedEnum", required = false) FeedEnum feedEnum,
                        @RequestParam(value = "relateName", required = false) String relateName,
                        @RequestParam(value = "clubId", required = false) Long clubId) {
+        System.out.println(FeedEnum.COMMODITY+"");
         List resultList = new ArrayList();
         if (feedEnum == FeedEnum.POST) {
             com.ranger.vo.ResultVO<Long> countVO = postContract.countPostByKey(clubId, relateName);
