@@ -1,6 +1,7 @@
 package com.ranger.vo;
 
 import com.ranger.enums.FeedEnum;
+import com.ranger.enums.FeedEnums;
 import lombok.Data;
 
 /**
@@ -20,7 +21,7 @@ public class DailyItemVO {
     /**
      * 关联id
      */
-    private FeedEnum feedEnum;
+    private FeedEnums feedEnum;
 
     /**
      * 封面图
