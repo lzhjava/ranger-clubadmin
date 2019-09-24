@@ -14,7 +14,6 @@ import com.ranger.club.contract.ClubContract;
 import com.ranger.club.dto.ClubBaseDTO;
 import com.ranger.commodity.contract.CommodityContract;
 import com.ranger.commodity.vo.CommodityVO;
-import com.ranger.enums.FeedEnum;
 import com.ranger.enums.PostType;
 import com.ranger.post.contract.PostContract;
 import com.ranger.post.vo.PostVO;
@@ -123,20 +122,20 @@ public class BannerController {
     /**
      * @param page
      * @param size
-     * @param feedEnum    类型
-     * @param relateName  名称模糊
+     * @param feedEnum   类型
+     * @param relateName 名称模糊
      * @param clubId
      * @return
      */
     @GetMapping("/dailyItemList")
     public Object list(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
                        @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
-                       @RequestParam(value = "feedEnum", required = false) FeedEnum feedEnum,
+                       @RequestParam(value = "feedEnum", required = false) com.ranger.enums.FeedEnum feedEnum,
                        @RequestParam(value = "relateName", required = false) String relateName,
                        @RequestParam(value = "clubId", required = false) Long clubId) {
-        System.out.println(com.ranger.enums.FeedEnum.COMMODITY+"");
+        System.out.println(com.ranger.enums.FeedEnum.COMMODITY + "");
         List resultList = new ArrayList();
-        if (feedEnum == FeedEnum.POST) {
+        if (feedEnum == com.ranger.enums.FeedEnum.POST) {
             com.ranger.vo.ResultVO<Long> countVO = postContract.countPostByKey(clubId, relateName);
             com.ranger.vo.ResultVO<List<PostVO>> resultVO = postContract.selectPostByKey(clubId, relateName, page, size);
 
@@ -180,7 +179,7 @@ public class BannerController {
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
-        } else if (feedEnum == FeedEnum.PARTY) {
+        } else if (feedEnum == com.ranger.enums.FeedEnum.PARTY) {
             com.ranger.vo.ResultVO resultVO = partyContract.selectPartyByKey(clubId, relateName, page, size);
 
             com.ranger.vo.ResultVO<Long> countVO = partyContract.countPartyByKey(clubId, relateName);
@@ -205,7 +204,7 @@ public class BannerController {
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
-        } else if (feedEnum == FeedEnum.VOTE) {
+        } else if (feedEnum == com.ranger.enums.FeedEnum.VOTE) {
             com.ranger.vo.ResultVO resultVO = voteContract.selectVoteByKey(clubId, relateName, page, size);
             Long count = 0L;
             com.ranger.vo.ResultVO<Long> countVO = voteContract.countVoteByKey(clubId, relateName);
@@ -229,7 +228,7 @@ public class BannerController {
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
-        } else if (feedEnum == FeedEnum.CLUB) {
+        } else if (feedEnum == com.ranger.enums.FeedEnum.CLUB) {
             Pager<ClubBaseDTO> clubBaseDTOPager = clubContract.getClubPage(relateName, page, size);
             Long count = 0L;
             if (clubBaseDTOPager != null) {
@@ -250,7 +249,7 @@ public class BannerController {
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
-        } else if (feedEnum == FeedEnum.ACTIVITY) {
+        } else if (feedEnum == com.ranger.enums.FeedEnum.ACTIVITY) {
             com.ranger.activity.vo.ResultVO resultVO = activityContract.selectActivityByKey(clubId, relateName, page, size);
             Long count = 0L;
             com.ranger.activity.vo.ResultVO<Long> countVO = activityContract.countActivityByKey(clubId, relateName);
@@ -276,7 +275,7 @@ public class BannerController {
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
-        } else if (feedEnum == FeedEnum.COMMODITY) {
+        } else if (feedEnum == com.ranger.enums.FeedEnum.COMMODITY) {
             Long count = 0L;
             com.ranger.commodity.vo.ResultVO<Pager<CommodityVO>> resultVO = commodityContract.searchCommodityPage(page, size, clubId, relateName);
             if (resultVO.getCode() == 0 && resultVO != null) {
