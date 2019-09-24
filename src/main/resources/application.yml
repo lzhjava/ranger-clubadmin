@@ -1,3 +1,8 @@
+spring:
+  jpa:
+    hibernate:
+      lazy: false
+    open-in-view: true
 server:
   port: 8133
 zookeeper: ${ZOOKEEPER_URL:localhost:2181}
