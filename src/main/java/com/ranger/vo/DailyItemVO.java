@@ -1,6 +1,5 @@
 package com.ranger.vo;
 
-import com.ranger.enums.FeedEnum;
 import com.ranger.enums.FeedEnums;
 import lombok.Data;
 
