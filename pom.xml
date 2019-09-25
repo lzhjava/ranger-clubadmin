@@ -43,16 +43,30 @@
 
         <!--俱乐部服务-->
         <dependency>
+            <groupId>com.ranger</groupId>
+            <artifactId>ranger-common</artifactId>
+            <version>0.0.3-SNAPSHOT</version>
+        </dependency>
+
+        <!--爬虫服务-->
+        <dependency>
             <groupId>com.ranger.audit</groupId>
             <artifactId>serviceScoreContract</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--俱乐部服务-->
+        <!--装备服务-->
         <dependency>
             <groupId>com.ranger.equip</groupId>
             <artifactId>serviceScoreContract</artifactId>
             <version>0.0.5-SNAPSHOT</version>
+        </dependency>
+
+        <!--商品服务-->
+        <dependency>
+            <groupId>com.ranger.commodity</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <!--广告服务-->

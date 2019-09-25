@@ -12,6 +12,8 @@ import com.ranger.advert.enums.FeedType;
 import com.ranger.advert.po.BannerPO;
 import com.ranger.club.contract.ClubContract;
 import com.ranger.club.dto.ClubBaseDTO;
+import com.ranger.commodity.contract.CommodityContract;
+import com.ranger.commodity.vo.CommodityVO;
 import com.ranger.enums.FeedEnum;
 import com.ranger.enums.PostType;
 import com.ranger.post.contract.PostContract;
@@ -51,6 +53,12 @@ public class BannerController {
 
     @Reference(interfaceClass = PostContract.class, timeout = 1200000)
     private PostContract postContract;
+
+    /**
+     * 商品服务
+     */
+    @Reference(interfaceClass = CommodityContract.class, timeout = 1200000)
+    private CommodityContract commodityContract;
 
 
     /**
@@ -115,8 +123,8 @@ public class BannerController {
     /**
      * @param page
      * @param size
-     * @param feedEnum
-     * @param relateName
+     * @param feedEnum   类型
+     * @param relateName 名称模糊
      * @param clubId
      * @return
      */
@@ -126,6 +134,7 @@ public class BannerController {
                        @RequestParam(value = "feedEnum", required = false) FeedEnum feedEnum,
                        @RequestParam(value = "relateName", required = false) String relateName,
                        @RequestParam(value = "clubId", required = false) Long clubId) {
+        System.out.println(FeedEnum.COMMODITY + "");
         List resultList = new ArrayList();
         if (feedEnum == FeedEnum.POST) {
             com.ranger.vo.ResultVO<Long> countVO = postContract.countPostByKey(clubId, relateName);
@@ -264,6 +273,24 @@ public class BannerController {
                         dailyItemVO.setTitle(activityVO.getActivityName());
                         resultList.add(dailyItemVO);
                     }
+                }
+            }
+            return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
+        } else if (feedEnum == FeedEnum.COMMODITY) {
+            Long count = 0L;
+            com.ranger.commodity.vo.ResultVO<Pager<CommodityVO>> resultVO = commodityContract.searchCommodityPage(page, size, clubId, relateName);
+            if (resultVO.getCode() == 0 && resultVO != null) {
+                count = Long.valueOf(resultVO.getBody().getTotal());
+                Pager<CommodityVO> pager = resultVO.getBody();
+                for (CommodityVO commodityVO : pager.getContent()) {
+                    DailyItemVO dailyItemVO = new DailyItemVO();
+                    dailyItemVO.setFeedEnum(feedEnum);
+                    dailyItemVO.setTitle(commodityVO.getProductName());
+                    if (commodityVO.getProductImg() != null && commodityVO.getProductImg().size() > 0) {
+                        dailyItemVO.setCover(commodityVO.getProductImg().get(0));
+                    }
+                    dailyItemVO.setRelateId(commodityVO.getId());
+                    resultList.add(dailyItemVO);
                 }
             }
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));

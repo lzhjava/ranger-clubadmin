@@ -34,6 +34,7 @@ public class HotdiscussController {
 
     /**
      * 获取热议列表
+     *
      * @param clubId
      * @param title
      * @param top
@@ -42,6 +43,7 @@ public class HotdiscussController {
      * @param size
      * @return
      */
+
     @GetMapping("/{clubId}")
     public Object getClubHotDiscuss(@PathVariable Long clubId, String title, Boolean top, PostVotePartyType type,
                                     @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -80,9 +82,9 @@ public class HotdiscussController {
 
     @GetMapping("/{relationId}/getContent")
     public Object getClubHotDiscuss(@PathVariable Long relationId, FeedType feedType) {
-        if (feedType == FeedType.POST){
-          return  postContract.selectPostContentById(relationId);
-        }else if (feedType == FeedType.ACTIVITY){
+        if (feedType == FeedType.POST) {
+            return postContract.selectPostContentById(relationId);
+        } else if (feedType == FeedType.ACTIVITY) {
             return activityContract.queryActivityContent(relationId);
         }
         return null;
@@ -90,17 +92,19 @@ public class HotdiscussController {
 
     /**
      * 热议置顶
+     *
      * @param relationId
      * @param postVotePartyType
      * @return
      */
     @PutMapping("/{relationId}/top")
     public Object topData(@PathVariable Long relationId, PostVotePartyType postVotePartyType) {
-       return postVotePartyContract.topData(relationId, postVotePartyType);
+        return postVotePartyContract.topData(relationId, postVotePartyType);
     }
 
     /**
      * 热议取消置顶
+     *
      * @param relationId
      * @param postVotePartyType
      * @return
