@@ -43,6 +43,7 @@ public class SeniorMemberController {
     public ResultVO SeniorMemberList(@PathVariable Integer type, @PathVariable Long relationId){
            return seniorMemberContrant.SeniorMemberList(type, relationId);
 
+
     }
 
 
