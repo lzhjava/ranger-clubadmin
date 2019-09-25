@@ -42,7 +42,7 @@ public class SeniorMemberController {
     @GetMapping("/{type}/{relationId}")
     public ResultVO SeniorMemberList(@PathVariable Integer type, @PathVariable Long relationId){
            return seniorMemberContrant.SeniorMemberList(type, relationId);
-           
+
 
     }
 
