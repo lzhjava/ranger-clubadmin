@@ -29,7 +29,7 @@ public class SeniorMemberController {
      */
     @PostMapping("")
     public ResultVO createSeniorMember(@RequestBody SeniorMemberDTO seniorMemberDTO){
-             //seniorMemberDTO.getStatus();
+            seniorMemberDTO.getStatus();
            return seniorMemberContrant.createSeniorMember(seniorMemberDTO);
     }
 
@@ -52,12 +52,12 @@ public class SeniorMemberController {
      * @param type
      * @param relationId
      * @return
-     *//*
+     */
     @GetMapping("/memberList/{type}/{relationId}")
-    public ResultVO applicationMemberList(@PathVariable Integer type, @PathVariable Long relationId){
-        return seniorMemberContrant.applicationMemberList(type,relationId);
+    public ResultVO applicationMemberList(@PathVariable Integer type, @PathVariable Long relationId,@RequestParam Integer result){
+        return seniorMemberContrant.applicationMemberList(type,relationId,result);
 
-    }*/
+    }
 
 
     /**   会员审核
