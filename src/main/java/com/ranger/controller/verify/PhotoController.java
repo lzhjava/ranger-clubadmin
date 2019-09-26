@@ -159,4 +159,24 @@ public class PhotoController {
         return photoContract.delPhoto(photoId, albumId, userId);
     }
 
+
+
+    /**
+     * 查询该关联id所有照片
+     *
+     * @param relevanceId 关联id
+     * @param type        相册类型
+     * @param pageNo      页码
+     * @param pageSize    条数
+     * @return
+     */
+    @GetMapping("/{relevanceId}/type/{type}")
+    public ResultVO activityGetAllPhoto(@PathVariable Long relevanceId,
+                                   @PathVariable Integer type,
+                                   @RequestParam(required = false, defaultValue = "0") Integer pageNo,
+                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+
+        return photoContract.activityGetAllPhoto(relevanceId, type, pageNo, pageSize);
+    }
+
 }
