@@ -117,8 +117,8 @@ public class CommodityController {
     @GetMapping("/shelves")
     public ResultVO searchShelvesPage(@RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                       @RequestParam(required = false, defaultValue = "10")Integer pageSize,
-                                      Long id,Long clubId){
-        return  commodityContract.searchShelvesPage(pageNo,pageSize,id,clubId);
+                                      Long id,Long clubId,Integer shelfTyp){
+        return  commodityContract.searchShelvesPage(pageNo,pageSize,id,clubId,shelfTyp);
     }
 
 
