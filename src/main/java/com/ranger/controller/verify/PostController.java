@@ -103,6 +103,9 @@ public class PostController {
     public ResultVO deletePost(@PathVariable Long postId, String reason) {
 
         ResultVO resultVO = postContract.deletePost(postId, reason);
+        if (resultVO.getCode() ==0){
+            postVotePartyContract.deleteData(postId, PostVotePartyType.POST);
+        }
 
         return resultVO;
 
