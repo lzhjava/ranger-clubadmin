@@ -88,7 +88,7 @@ public class BannerController {
      */
     @PostMapping
     public com.ranger.advert.vo.ResultVO saveBanner(@RequestBody BannerPO bannerPO) {
-        System.out.println(FeedType.ACTIVITY);
+        System.out.println(FeedType.COMMODITY);
         return bannerContract.saveBanner(bannerPO);
     }
 
