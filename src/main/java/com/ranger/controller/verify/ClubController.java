@@ -40,7 +40,7 @@ public class ClubController {
      */
     @GetMapping("/members/{clubId}")
     public ResultVO searchClubMember(@PathVariable Long clubId,
-                                     @RequestParam ClubMemberType type,
+                                     ClubMemberType type,
                                      @RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                      @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                      String nickName) {
