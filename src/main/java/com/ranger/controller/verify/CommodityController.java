@@ -143,7 +143,7 @@ public class CommodityController {
     public ResultVO putGoods(@RequestParam Long shelvesId,
                              @RequestParam Long commodityId,
                              @RequestParam Double rank,
-                             @RequestParam List<String> shelvesImg){
+                             @RequestBody  List<String> shelvesImg){
         return  commodityContract.putGoods(shelvesId, commodityId,rank,shelvesImg);
     }
 
