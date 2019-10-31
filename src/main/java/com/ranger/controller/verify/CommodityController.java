@@ -7,6 +7,8 @@ import com.ranger.commodity.po.ShelvesPo;
 import com.ranger.commodity.vo.ResultVO;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**  商品服务
  * @author huipeng
@@ -140,8 +142,9 @@ public class CommodityController {
     @PostMapping(("/shelves/put"))
     public ResultVO putGoods(@RequestParam Long shelvesId,
                              @RequestParam Long commodityId,
-                             @RequestParam Double rank){
-        return  commodityContract.putGoods(shelvesId, commodityId,rank);
+                             @RequestParam Double rank,
+                             @RequestParam List<String> shelvesImg){
+        return  commodityContract.putGoods(shelvesId, commodityId,rank,shelvesImg);
     }
 
 
