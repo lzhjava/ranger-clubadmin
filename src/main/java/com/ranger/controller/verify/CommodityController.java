@@ -138,8 +138,10 @@ public class CommodityController {
      * @return
      */
     @PostMapping(("/shelves/put"))
-    public ResultVO putGoods(@RequestParam Long shelvesId,@RequestParam Long commodityId){
-        return  commodityContract.putGoods(shelvesId, commodityId);
+    public ResultVO putGoods(@RequestParam Long shelvesId,
+                             @RequestParam Long commodityId,
+                             @RequestParam Double rank){
+        return  commodityContract.putGoods(shelvesId, commodityId,rank);
     }
 
 
@@ -151,5 +153,28 @@ public class CommodityController {
     @PostMapping("/shelves/remove")
     public ResultVO removeGoods(@RequestParam Long shelvesId,@RequestParam Long commodityId){
         return  commodityContract.removeGoods(shelvesId, commodityId);
+    }
+
+
+    /**   货架排序
+     * @param shelvesId
+     * @param location
+     * @return
+     */
+    @PostMapping("/shelves/sorting")
+    public ResultVO  shelvesSorting(@RequestParam Long shelvesId,@RequestParam Double location){
+        return commodityContract.shelvesSorting(shelvesId, location);
+    }
+
+
+
+    /**   商品上架（不操作关系，只做标识）
+     * @param commodityId
+     * @param putaway
+     * @return
+     */
+    @PostMapping("/goodsShelves")
+    public  ResultVO  goodsShelves(@RequestParam Long commodityId,@RequestParam Boolean putaway){
+        return  commodityContract.goodsShelves(commodityId, putaway);
     }
 }
