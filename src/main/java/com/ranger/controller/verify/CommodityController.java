@@ -67,6 +67,7 @@ public class CommodityController {
    public ResultVO searchCommodityPage( @RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                         @RequestParam(required = false, defaultValue = "10")Integer pageSize,
                                         Long clubId,String productName,Integer productType){
+        
        return  commodityContract.searchCommodityPage(pageNo, pageSize, clubId,productName,productType);
    }
 
