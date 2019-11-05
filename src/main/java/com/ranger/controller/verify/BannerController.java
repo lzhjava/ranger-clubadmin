@@ -278,7 +278,7 @@ public class BannerController {
             return new ResultVO<>("", 0, new com.ranger.utils.Pager(page, size, count, resultList));
         } else if (feedEnum == FeedEnum.COMMODITY) {
             Long count = 0L;
-            com.ranger.commodity.vo.ResultVO<Pager<CommodityVO>> resultVO = commodityContract.searchCommodityPage(page, size, clubId, relateName,null);
+            com.ranger.commodity.vo.ResultVO<Pager<CommodityVO>> resultVO = commodityContract.searchCommodityPage(page, size, clubId, relateName,null,true);
             if (resultVO.getCode() == 0 && resultVO != null) {
                 count = Long.valueOf(resultVO.getBody().getTotal());
                 Pager<CommodityVO> pager = resultVO.getBody();
