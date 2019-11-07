@@ -131,12 +131,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.ranger.commodity</groupId>
-            <artifactId>serviceScoreContract</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.10-FINAL</version>
