@@ -416,24 +416,37 @@ public class ActivityController {
     @GetMapping("/{activityId}/activityExport")
     public ResultVO getActivityExport(@PathVariable Long activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        ResultVO<List<ActivityRegistrationExportVO>> resultVO = aBGCContract.ActivityRegistrationExport(activityId);
-        if (resultVO != null && resultVO.getCode().equals(0)) {
-            List<ActivityRegistrationExportVO> activityRegistrationExportVOS = resultVO.getBody();
-            if (activityRegistrationExportVOS.size() > 0) {
-                String name = activityRegistrationExportVOS.get(0).getActivityName();
-                try {
-                    excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
+        /**
+         * 先查询此活动是否存在
+         */
+        ResultVO<ActivityVO> resultVOActivityVO = activityContract.selectById(activityId);
+        if (resultVOActivityVO != null && resultVOActivityVO.getCode().equals(0)){
+            /**
+             * 如果存在就获取活动需要导出的列表对象
+             */
+            ResultVO<List<ActivityRegistrationExportVO>> resultVO = aBGCContract.ActivityRegistrationExport(activityId);
+            if (resultVO != null && resultVO.getCode().equals(0)) {
+                List<ActivityRegistrationExportVO> activityRegistrationExportVOS = resultVO.getBody();
+                if (activityRegistrationExportVOS.size() > 0) {
+                    ActivityVO activityVO =(ActivityVO)resultVOActivityVO.getBody();
+                    String name = activityVO.getActivityName();
+                    try {
+                        excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return ResultVO.success();
                 }
-                return ResultVO.success();
+                return ResultVO.error("活动无人报名", 140006);
+            } else {
+                return ResultVO.error("活动无人报名", 140006);
             }
-            return ResultVO.error("活动无人报名", 140006);
-        } else {
-            return ResultVO.ACTIVITY_IS_NULL;
+        }else{
+            return resultVOActivityVO;
         }
+
     }
 
     /**
@@ -444,7 +457,23 @@ public class ActivityController {
      */
     @GetMapping("/{activityId}/activityRegistrationList")
     public ResultVO getActivityRegistrationList(@PathVariable Long activityId) throws IOException {
-        return aBGCContract.ActivityRegistrationExport(activityId);
+        ResultVO<ActivityVO> resultVO = activityContract.selectById(activityId);
+        if (resultVO != null && resultVO.getCode().equals(0)){
+            return aBGCContract.ActivityRegistrationExport(activityId);
+        }else{
+            return resultVO;
+        }
+
+    }
+
+
+    public ResultVO activityJudge(Long activityId){
+        ResultVO<ActivityVO> resultVO = activityContract.selectById(activityId);
+        if (resultVO != null && resultVO.getCode().equals(0)){
+            return resultVO;
+        }else{
+            return null;
+        }
     }
 }
 
