@@ -117,6 +117,7 @@ public class ClubController {
     @PutMapping("/{clubId}")
     public ResultVO modifyClub(@PathVariable Long clubId, @RequestBody ClubPO clubPO) {
         clubPO.setClubId(clubId);
+        clubPO.getMobileDisplay();
         return clubManageContract.modifyClub(clubId, clubPO);
     }
 }
