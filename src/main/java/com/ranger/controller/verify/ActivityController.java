@@ -1,15 +1,23 @@
 package com.ranger.controller.verify;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.ranger.activity.contract.ActivityBuyGoodCheckContract;
 import com.ranger.activity.contract.ActivityContract;
 import com.ranger.activity.dto.*;
+import com.ranger.activity.vo.ActivityRegistrationExportVO;
 import com.ranger.activity.vo.ActivityVO;
 import com.ranger.activity.vo.ResultVO;
 import com.ranger.advert.contract.ClubActivityTypeContract;
 import com.ranger.audit.contract.ActivityAuditContract;
 import com.ranger.photo.contract.PhotoContract;
+import com.ranger.utils.ExcelExportUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +34,9 @@ public class ActivityController {
     @Reference(interfaceClass = ActivityContract.class, timeout = 1200000)
     private ActivityContract activityContract;
 
+    @Reference(interfaceClass = ActivityBuyGoodCheckContract.class, timeout = 1200000)
+    private ActivityBuyGoodCheckContract aBGCContract;
+
     @Reference(interfaceClass = ActivityAuditContract.class, timeout = 1200000)
     private ActivityAuditContract activityAuditContract;
 
@@ -34,6 +45,9 @@ public class ActivityController {
 
     @Reference(interfaceClass = PhotoContract.class, timeout = 1200000)
     private PhotoContract photoContract;
+
+    @Autowired
+    private ExcelExportUtil excelExportUtil;
 
     /**
      * 获取活动类别列表
@@ -392,4 +406,46 @@ public class ActivityController {
     public ResultVO untopActivity(@PathVariable Long activityId) {
         return activityContract.untopActivity(activityId);
     }
+
+    /**
+     * 活动报名人员列表导出
+     *
+     * @param activityId
+     * @return
+     */
+    @GetMapping("/{activityId}/activityExport")
+    public ResultVO getActivityExport(@PathVariable Long activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        ResultVO<List<ActivityRegistrationExportVO>> resultVO = aBGCContract.ActivityRegistrationExport(activityId);
+        if (resultVO != null && resultVO.getCode().equals(0)) {
+            List<ActivityRegistrationExportVO> activityRegistrationExportVOS = resultVO.getBody();
+            if (activityRegistrationExportVOS.size() > 0) {
+                String name = activityRegistrationExportVOS.get(0).getActivityName();
+                try {
+                    excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return ResultVO.success();
+            }
+            return ResultVO.error("活动无人报名", 140006);
+        } else {
+            return ResultVO.ACTIVITY_IS_NULL;
+        }
+    }
+
+    /**
+     * 活动报名人员列表导出
+     *
+     * @param activityId
+     * @return
+     */
+    @GetMapping("/{activityId}/activityRegistrationList")
+    public ResultVO getActivityRegistrationList(@PathVariable Long activityId) throws IOException {
+        return aBGCContract.ActivityRegistrationExport(activityId);
+    }
 }
+
+
