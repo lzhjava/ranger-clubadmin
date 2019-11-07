@@ -181,4 +181,16 @@ public class CommodityController {
     public  ResultVO  goodsShelves(@RequestParam Long commodityId,@RequestParam Boolean putaway){
         return  commodityContract.goodsShelves(commodityId, putaway);
     }
+
+
+    /**    修改库存
+     * @param id
+     * @param stock
+     * @return
+     */
+    @PutMapping("/inventory/{id}")
+    public ResultVO  modifyInventory(@PathVariable Long id,@RequestParam Integer stock){
+      return   commodityContract.modifyInventory(id,stock);
+
+    }
 }
