@@ -36,7 +36,7 @@ public class ExcelExportUtil {
      * secondList 重点任务数据(重大工作项:一级目录)
      * thirdList 分解任务数据(任务分解项:二级目录)
      */
-    public void exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName, HttpServletResponse response) {
+    public File exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName, HttpServletResponse response) {
 
         //取出数据源;
         String headTitle = activityName;//标题;
@@ -73,24 +73,42 @@ public class ExcelExportUtil {
                 i++;
             }
 
-            //File outFile = new File("活动报名人员类别导出.xlsx");
-            /*FileOutputStream fout = new FileOutputStream("活动报名人员类别导出.xlsx");
+            File outFile = new File("活动报名人员类别导出.xlsx");
+            FileOutputStream fout = new FileOutputStream(outFile);
             book.write(fout);
-            fout.close();*/
+            fout.close();
 
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String((activityName).getBytes("gb2312"), "ISO-8859-1") + ".xls");
-            OutputStream os = response.getOutputStream();
-            book.write(os);
-            os.flush();
-            os.close();
-
-            //return outFile;
+            return outFile;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //return null;
+        return null;
+    }
+
+    public void fileChange(File file,HttpServletResponse response){
+
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+
+            bis = new BufferedInputStream(new FileInputStream(file));
+            bos = new BufferedOutputStream(response.getOutputStream());
+
+            byte[] buff = new byte[10240];
+            int bytesRead;
+            while(-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, bytesRead);
+            }
+
+            bis.close();
+            bos.close();
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
     }
 
 

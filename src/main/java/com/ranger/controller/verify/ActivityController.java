@@ -10,7 +10,9 @@ import com.ranger.activity.vo.ResultVO;
 import com.ranger.advert.contract.ClubActivityTypeContract;
 import com.ranger.audit.contract.ActivityAuditContract;
 import com.ranger.photo.contract.PhotoContract;
+import com.ranger.statistics.contract.QiniuContract;
 import com.ranger.utils.ExcelExportUtil;
+import com.ranger.utils.IdGen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,9 @@ public class ActivityController {
 
     @Reference(interfaceClass = PhotoContract.class, timeout = 1200000)
     private PhotoContract photoContract;
+
+    @Reference(interfaceClass = QiniuContract.class, timeout = 1200000)
+    private QiniuContract qiniuContract;
 
     @Autowired
     private ExcelExportUtil excelExportUtil;
@@ -416,11 +421,18 @@ public class ActivityController {
     @GetMapping("/{activityId}/activityExport")
     public ResultVO getActivityExport(@PathVariable Long activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
         /**
          * 先查询此活动是否存在
          */
         ResultVO<ActivityVO> resultVOActivityVO = activityContract.selectById(activityId);
-        if (resultVOActivityVO != null && resultVOActivityVO.getCode().equals(0)){
+        if (resultVOActivityVO != null && resultVOActivityVO.getCode().equals(0)) {
+            /**
+             * 生成一个uuid用于文件路径的地址前缀
+             */
+            String Key = IdGen.uuid();
             /**
              * 如果存在就获取活动需要导出的列表对象
              */
@@ -428,22 +440,46 @@ public class ActivityController {
             if (resultVO != null && resultVO.getCode().equals(0)) {
                 List<ActivityRegistrationExportVO> activityRegistrationExportVOS = resultVO.getBody();
                 if (activityRegistrationExportVOS.size() > 0) {
-                    ActivityVO activityVO =(ActivityVO)resultVOActivityVO.getBody();
+                    String path = "";
+                    ActivityVO activityVO = (ActivityVO) resultVOActivityVO.getBody();
                     String name = activityVO.getActivityName();
+                    Key = Key + name + ".xlsx";
                     try {
-                        excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
+                        /**
+                         * 生成Excel文件
+                         */
+                        File file = excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
 
+                        bis = new BufferedInputStream(new FileInputStream(file));
+                        bos = new BufferedOutputStream(response.getOutputStream());
+
+                        /**
+                         * 转换为二进制
+                         */
+                        byte[] buff = new byte[10240];
+                        int bytesRead;
+                        while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                            bos.write(buff, 0, bytesRead);
+                        }
+
+                        bis.close();
+                        bos.close();
+                        /**
+                         * 上传到七牛,返回文件路径
+                         */
+                        path = qiniuContract.uploadFile(buff, Key, null);
+                        System.out.println(path);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return ResultVO.success();
+                    return new ResultVO(path);
                 }
                 return ResultVO.error("活动无人报名", 140006);
             } else {
                 return ResultVO.error("活动无人报名", 140006);
             }
-        }else{
+        } else {
             return resultVOActivityVO;
         }
 
@@ -458,20 +494,20 @@ public class ActivityController {
     @GetMapping("/{activityId}/activityRegistrationList")
     public ResultVO getActivityRegistrationList(@PathVariable Long activityId) throws IOException {
         ResultVO<ActivityVO> resultVO = activityContract.selectById(activityId);
-        if (resultVO != null && resultVO.getCode().equals(0)){
+        if (resultVO != null && resultVO.getCode().equals(0)) {
             return aBGCContract.ActivityRegistrationExport(activityId);
-        }else{
+        } else {
             return resultVO;
         }
 
     }
 
 
-    public ResultVO activityJudge(Long activityId){
+    public ResultVO activityJudge(Long activityId) {
         ResultVO<ActivityVO> resultVO = activityContract.selectById(activityId);
-        if (resultVO != null && resultVO.getCode().equals(0)){
+        if (resultVO != null && resultVO.getCode().equals(0)) {
             return resultVO;
-        }else{
+        } else {
             return null;
         }
     }
