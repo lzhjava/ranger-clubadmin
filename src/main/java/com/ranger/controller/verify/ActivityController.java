@@ -419,11 +419,10 @@ public class ActivityController {
      * @return
      */
     @GetMapping("/{activityId}/activityExport")
-    public ResultVO getActivityExport(@PathVariable Long activityId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResultVO getActivityExport(@PathVariable Long activityId) throws IOException {
 
 
         BufferedInputStream bis = null;
-        BufferedOutputStream bos = null;
         /**
          * 先查询此活动是否存在
          */
@@ -448,10 +447,10 @@ public class ActivityController {
                         /**
                          * 生成Excel文件
                          */
-                        File file = excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name, response);
+                        File file = excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name);
 
                         bis = new BufferedInputStream(new FileInputStream(file));
-                        bos = new BufferedOutputStream(response.getOutputStream());
+                        ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
 
                         /**
                          * 转换为二进制
@@ -459,21 +458,21 @@ public class ActivityController {
                         byte[] buff = new byte[10240];
                         int bytesRead;
                         while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
-                            bos.write(buff, 0, bytesRead);
+                            bytestream.write(buff, 0, bytesRead);
                         }
 
                         bis.close();
-                        bos.close();
+                        bytestream.close();
                         /**
                          * 上传到七牛,返回文件路径
                          */
                         path = qiniuContract.uploadFile(buff, Key, null);
                         System.out.println(path);
-
+                        return new ResultVO(path);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    return new ResultVO(path);
+
                 }
                 return ResultVO.error("活动无人报名", 140006);
             } else {
