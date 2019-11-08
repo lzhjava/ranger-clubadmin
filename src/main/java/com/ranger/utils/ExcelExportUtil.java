@@ -36,7 +36,7 @@ public class ExcelExportUtil {
      * secondList 重点任务数据(重大工作项:一级目录)
      * thirdList 分解任务数据(任务分解项:二级目录)
      */
-    public File exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName, HttpServletResponse response) {
+    public File exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName) {
 
         //取出数据源;
         String headTitle = activityName;//标题;
