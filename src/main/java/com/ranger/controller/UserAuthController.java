@@ -64,6 +64,7 @@ public class UserAuthController {
         if (ObjectUtils.nullSafeEquals(0,clubDTOS.size())){
             return ResultVO.USER_HAVENOT_MANAGE_CLUB;
         }
+        
         HashMap<String, Object> maps = new HashMap<>();
         maps.put("body",body);
         maps.put("clubs",clubDTOS);
