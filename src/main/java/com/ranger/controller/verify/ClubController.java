@@ -75,10 +75,11 @@ public class ClubController {
      * @return
      */
     @PostMapping("/{clubId}/verify")
-    public ResultVO clubMemberVerify(@PathVariable Long clubId,
+    public ResultVO clubMemberVerify(@PathVariable Long id,
+                                     @PathVariable Long clubId,
                                      @RequestParam Long userId,
                                      @RequestParam ClubJoinVerifyType clubJoinVerifyType) {
-        return clubManageContract.clubMemberReview(clubId, userId, clubJoinVerifyType);
+        return clubManageContract.clubMemberReview(id,clubId, userId, clubJoinVerifyType);
     }
 
 
