@@ -109,6 +109,7 @@ public class CommodityController {
      */
     @PutMapping("/shelves/{id}")
     public ResultVO modifyShelves(@PathVariable Long id,@RequestBody ShelvesPo shelvesPo){
+        
         return  commodityContract.modifyShelves(id, shelvesPo);
     }
 
