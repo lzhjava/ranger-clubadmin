@@ -5,15 +5,11 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -25,7 +21,7 @@ import java.util.List;
 @Service
 public class ExcelExportUtil {
 
-    public static int cols = 6;//excel里表格列
+    public static int cols = 7;//excel里表格列
 
 
     /**
@@ -70,6 +66,7 @@ public class ExcelExportUtil {
                 row.createCell((short)3).setCellValue(activityExportVO.getUserId());
                 row.createCell((short)4).setCellValue(activityExportVO.getUserName());
                 row.createCell((short)5).setCellValue(activityExportVO.getUserPhone());
+                row.createCell((short)5).setCellValue(activityExportVO.getBuyNumber());
                 i++;
             }
 
@@ -162,6 +159,9 @@ public class ExcelExportUtil {
             }
             if (j == 5) {
                 title = "用户手机号";
+            }
+            if (j == 6) {
+                title = "购买次数";
             }
             cell.setCellValue(title);
             cell.setCellStyle(style);
