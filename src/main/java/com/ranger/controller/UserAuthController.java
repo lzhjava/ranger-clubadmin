@@ -57,7 +57,7 @@ public class UserAuthController {
 
         Object body = JSONObject.parseObject(JSONObject.toJSONString(resultVO)).get("body");
         if (ObjectUtils.nullSafeEquals(null,body)){
-            return resultVO.USER_RIGHTS_ERROR;
+            return resultVO;
         }
         Object userId = JSONObject.parseObject(JSONObject.toJSONString(body)).get("userId");
         List<ClubDTO> clubDTOS = clubContract.searchClubsByUserId(Long.valueOf(String.valueOf(userId)), ClubMemberType.FOUNDER);
