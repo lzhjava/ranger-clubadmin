@@ -66,7 +66,7 @@ public class ExcelExportUtil {
                 row.createCell((short)3).setCellValue(activityExportVO.getUserId());
                 row.createCell((short)4).setCellValue(activityExportVO.getUserName());
                 row.createCell((short)5).setCellValue(activityExportVO.getUserPhone());
-                row.createCell((short)5).setCellValue(activityExportVO.getBuyNumber());
+                row.createCell((short)6).setCellValue(activityExportVO.getBuyNumber());
                 i++;
             }
 
