@@ -34,6 +34,7 @@ public class CommodityController {
      */
     @PostMapping
    public ResultVO saveCommodity(@RequestBody CommodityPo commodityPo){
+        System.out.println(commodityPo.getHighGrade());
         ResultVO resultVO = commodityContract.saveCommodity(commodityPo);
         return resultVO;
     }
