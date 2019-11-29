@@ -32,6 +32,7 @@ public class CarOwnerController {
 
     @PostMapping("")
     public  ResultVO saveCarOwner(@RequestBody ClubOwnerPO clubOwnerPO) {
+        System.out.println(clubOwnerPO.getChecks());
         return carOwnerContract.saveCarOwner(clubOwnerPO);
     }   //存储俱乐部车主信息
 
