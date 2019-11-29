@@ -45,7 +45,7 @@
         <dependency>
             <groupId>com.ranger.club</groupId>
             <artifactId>serviceScoreContract</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
 
         <!--俱乐部服务-->
