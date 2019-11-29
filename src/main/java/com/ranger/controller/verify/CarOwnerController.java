@@ -50,7 +50,7 @@ public class CarOwnerController {
     } //修改车主信息
 
 
-    @GetMapping("{clubId}")
+    @GetMapping("/{clubId}")
     public ResultVO searchCarOwners(@PathVariable Long clubId){
         return carOwnerContract.searchCarOwners(clubId);
     } //查询俱乐部车主信息列表
