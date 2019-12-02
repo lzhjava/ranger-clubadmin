@@ -61,7 +61,7 @@ public class CarOwnerController {
     public  ResultVO clubOwnerJoinVerifPage (@RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                              @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                              Long clubId,Integer status){
-        return carOwnerContract.clubOwnerJoinVerifPage(pageNo, pageSize, clubId, status);
+        return carOwnerContract.clubOwnerJoinVerifPage(pageNo, pageSize, clubId, status,null);
     }        //车主认证审核列表
 
 
