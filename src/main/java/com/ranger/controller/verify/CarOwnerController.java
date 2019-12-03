@@ -52,8 +52,8 @@ public class CarOwnerController {
 
 
     @GetMapping("/{clubId}")
-    public ResultVO searchCarOwners(@PathVariable Long clubId){
-        return carOwnerContract.searchCarOwners(clubId);
+    public ResultVO searchCarOwners(@PathVariable Long clubId,Long id){
+        return carOwnerContract.searchCarOwners(clubId,id);
     } //查询俱乐部车主信息列表
 
 
