@@ -97,6 +97,13 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!--feed服务-->
+        <dependency>
+            <groupId>com.ranger.feed</groupId>
+            <artifactId>serviceScoreContract</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--活动服务-->
         <dependency>
             <groupId>com.ranger.activity</groupId>
