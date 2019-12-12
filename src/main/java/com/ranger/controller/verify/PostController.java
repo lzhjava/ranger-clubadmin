@@ -4,6 +4,10 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.activity.contract.PostVotePartyContract;
 import com.ranger.activity.dto.PostVotePartyDTO;
 import com.ranger.activity.enums.PostVotePartyType;
+import com.ranger.enums.FeedType;
+import com.ranger.enums.PostType;
+import com.ranger.feed.contract.SearchContract;
+import com.ranger.feed.dto.FeedESDTO;
 import com.ranger.model.UserInfo;
 import com.ranger.post.contract.PostContract;
 import com.ranger.post.dto.PostDTO;
@@ -34,6 +38,7 @@ public class PostController {
     private PostVotePartyContract postVotePartyContract;
 
 
+
     /**
      * 新增帖子
      *
@@ -55,6 +60,7 @@ public class PostController {
 
     /**
      * 将新增或者修改的帖子存入到热议表中
+     *
      * @param resultVO
      */
     public void saveHotdiscuss(ResultVO resultVO) {
@@ -103,7 +109,7 @@ public class PostController {
     public ResultVO deletePost(@PathVariable Long postId, String reason) {
 
         ResultVO resultVO = postContract.deletePost(postId, reason);
-        if (resultVO.getCode() ==0){
+        if (resultVO.getCode() == 0) {
             postVotePartyContract.deleteData(postId, PostVotePartyType.POST);
         }
 
