@@ -30,7 +30,7 @@ public class PhysicalController {
     public ResultVO searchPhysicalGoodsPage(@RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                             String orderId,
-                                            @RequestHeader (name = "userId",defaultValue = "0") Long userId,
+                                            Long userId,
                                             Long clubId){
         return  physicalContract.searchPhysicalGoodsPage(pageNo, pageSize, orderId, userId,clubId);
     }        //实物商品分页
