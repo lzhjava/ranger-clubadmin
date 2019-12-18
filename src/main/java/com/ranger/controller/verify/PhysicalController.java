@@ -55,8 +55,8 @@ public class PhysicalController {
     @GetMapping("/aRefund/page")
     public ResultVO searchARefundPage(@RequestParam(required = false, defaultValue = "0") Integer pageNo,
                                       @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-                                     Integer status,Long clubId){
-        return  physicalContract.searchARefundPage(pageNo, pageSize, status, clubId);
+                                     Integer status,Long clubId,Long userId){
+        return  physicalContract.searchARefundPage(pageNo, pageSize, status, clubId,userId);
     }    //待退款列表
 
 }
