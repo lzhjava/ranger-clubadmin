@@ -36,11 +36,10 @@ public class PhysicalController {
     }        //实物商品分页
 
 
-    @GetMapping("/aRefund/{oderId}")
-    public ResultVO orderIdGetReimburse(String orderId){
+    @GetMapping("/aRefund/{orderId}")
+    public ResultVO orderIdGetReimburse(@PathVariable String orderId){
         return  physicalContract.orderIdGetReimburse(orderId);
-    }          //订单id查询退款信息
-
+    }
 
     @PutMapping("/aRefund/{id}")
     public ResultVO refundTheAudit(@PathVariable Long id,String reason,Integer status){
