@@ -35,8 +35,9 @@ public class MediaUserController {
                                   @RequestParam(required = false, defaultValue = "15")Integer pageSize,
                                    String nickname,
                                    Boolean whitelist,
-                                   Long id){
-        return userInfoApi.mediaUserPage(pageNo, pageSize, nickname, whitelist,id);
+                                   Long id,
+                                   Boolean recommend ){
+        return userInfoApi.mediaUserPage(pageNo, pageSize, nickname, whitelist,id,recommend);
     }
 
 
@@ -62,6 +63,16 @@ public class MediaUserController {
     public ResultVO saveClubMediaUser(@PathVariable Long clubId, @RequestBody List<Long> mediaUserId){
         return userInfoApi.saveClubMediaUser(clubId,mediaUserId);
 
+    }
+
+    /** 俱乐部取关媒体用户
+     * @param clubId
+     * @param mediaUserId
+     * @return
+     */
+    @DeleteMapping("/callOff/{clubId}")
+    public ResultVO delClubMediaUser(@PathVariable Long clubId,@RequestBody List<Long> mediaUserId){
+        return  userInfoApi.delClubMediaUser(clubId, mediaUserId);
     }
 
 
