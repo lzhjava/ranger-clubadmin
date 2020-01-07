@@ -36,8 +36,9 @@ public class MediaUserController {
                                    String nickname,
                                    Boolean whitelist,
                                    Long id,
-                                   Boolean recommend ){
-        return userInfoApi.mediaUserPage(pageNo, pageSize, nickname, whitelist,id,recommend);
+                                   Boolean recommend ,
+                                   Long userId,Long clubId){
+        return userInfoApi.mediaUserPage(pageNo, pageSize, nickname, whitelist,id,recommend,userId,clubId);
     }
 
 
