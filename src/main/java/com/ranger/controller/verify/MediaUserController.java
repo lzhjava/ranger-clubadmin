@@ -24,6 +24,7 @@ public class MediaUserController {
 
 
     /**    媒体组查询
+     * 
      * @param pageNo
      * @param pageSize
      * @param nickname    昵称
