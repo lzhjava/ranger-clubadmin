@@ -1,13 +1,16 @@
-FROM maven:3-jdk-8
+# --- build
+FROM maven:3-jdk-8 AS build
 
-MAINTAINER chaiwei<chaiwei@acegear.com>
-
+RUN mkdir /app
+WORKDIR /app
 COPY pom.xml pom.xml
-
-RUN mvn install
-
 COPY src src
 
-RUN mvn package && mv ./target/ranger-clubadmin-0.0.1-SNAPSHOT.jar clubadmin.jar && mvn clean
+RUN mvn -f ./pom.xml package && mv ./target/ranger-clubadmin-0.0.1-SNAPSHOT.jar app.jar && mvn clean
 
-CMD java -jar -Dspring.profiles.active=production clubadmin.jar
+# --- run
+FROM java:8-jre-alpine
+
+COPY --from=build /app/app.jar app.jar
+
+CMD java -jar -Dspring.profiles.active=production app.jar
