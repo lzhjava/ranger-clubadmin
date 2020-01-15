@@ -139,7 +139,7 @@ public class ExcelExportUtil {
         Row row = sheet.createRow(1);// 创建第一行
         row.setHeightInPoints(25);//设置行的高度是20个点
         for (int j = 0; j < cols; j++) {
-            sheet.autoSizeColumn((short)j);
+            //sheet.autoSizeColumn((short)j);
             Cell cell = row.createCell(j);
             //cell.setCellType(HSSFCell.CELL_TYPE_STRING);
             if (j == 0) {
