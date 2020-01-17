@@ -3,10 +3,14 @@ package com.ranger.controller.verify;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.club.contract.ClubContract;
 import com.ranger.club.contract.ClubManageContract;
+import com.ranger.club.dto.ClubBaseDTO;
 import com.ranger.club.enums.ClubJoinVerifyType;
 import com.ranger.club.enums.ClubMemberType;
 import com.ranger.club.po.ClubPO;
 import com.ranger.club.vo.ResultVO;
+import com.ranger.enums.FeedType;
+import com.ranger.feed.contract.SearchContract;
+import com.ranger.feed.dto.FeedESDTO;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,6 +32,10 @@ public class ClubController {
 
     @Reference(interfaceClass = ClubManageContract.class, timeout = 1200000)
     private ClubManageContract clubManageContract;
+
+
+    @Reference(interfaceClass = SearchContract.class, timeout = 1200000)
+    private SearchContract searchContract;
 
     /**
      * 查询俱乐部管理员  或者   俱乐部会员（默认查询会员）
@@ -118,7 +126,19 @@ public class ClubController {
     @PutMapping("/{clubId}")
     public ResultVO modifyClub(@PathVariable Long clubId, @RequestBody ClubPO clubPO) {
         clubPO.setClubId(clubId);
-        clubPO.getMobileDisplay();
-        return clubManageContract.modifyClub(clubId, clubPO);
+        ResultVO<ClubBaseDTO> club = clubManageContract.modifyClub(clubId, clubPO);
+
+        try {
+            ClubBaseDTO  clubbase = club.getBody();
+            FeedESDTO feedESDTO = new FeedESDTO();
+            feedESDTO.setDataId(clubbase.getClubId());
+            feedESDTO.setFeedType(FeedType.CLUB);
+            feedESDTO.setTitle(clubbase.getClubName());
+            searchContract.update(feedESDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("修改俱乐部更新es数据出错");
+        }
+        return club;
     }
 }
