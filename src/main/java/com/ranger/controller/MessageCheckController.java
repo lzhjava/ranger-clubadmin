@@ -3,6 +3,7 @@ package com.ranger.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.ranger.statistics.contract.CodeContract;
 import com.ranger.statistics.vo.ResultVO;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,9 @@ public class MessageCheckController {
      */
     @PostMapping("")
     public ResultVO msgCheck(@RequestParam Integer type, @RequestParam String content){
+        if (ObjectUtils.nullSafeEquals(null,content) || ObjectUtils.nullSafeEquals("",content)){
+            return new ResultVO(true);
+        }
         return new ResultVO( codeContract.check(type,content));
     }
 }
