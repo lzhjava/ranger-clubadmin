@@ -1,12 +1,15 @@
 package com.ranger.utils;
 
+import com.ranger.activity.model.SignTemplateInfo;
 import com.ranger.activity.vo.ActivityRegistrationExportVO;
+import com.ranger.model.SignTemplateItem;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -32,7 +35,7 @@ public class ExcelExportUtil {
      * secondList 重点任务数据(重大工作项:一级目录)
      * thirdList 分解任务数据(任务分解项:二级目录)
      */
-    public File exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName) {
+    public File exportTaskSumPoi(List<ActivityRegistrationExportVO> ExportVOS, String activityName, List<SignTemplateItem> signupItems) {
 
         //取出数据源;
         String headTitle = activityName;//标题;
@@ -49,7 +52,9 @@ public class ExcelExportUtil {
             HSSFSheet sheet = book.createSheet(sheetTitle);
             //设置标题和表头;
             createTitle(book, sheet, headTitle);
-            createHead(book, sheet);
+
+
+            createHead(book, sheet, signupItems);
 
             /**
              * 样式
@@ -60,13 +65,33 @@ public class ExcelExportUtil {
             int i = 0;
             for (ActivityRegistrationExportVO activityExportVO : ExportVOS) {
                 Row row = sheet.createRow(start + i);
-                row.createCell((short)0).setCellValue(activityExportVO.getStageName());
-                row.createCell((short)1).setCellValue(activityExportVO.getGroupName());
-                row.createCell((short)2).setCellValue(activityExportVO.getGoodName());
-                row.createCell((short)3).setCellValue(activityExportVO.getUserId());
-                row.createCell((short)4).setCellValue(activityExportVO.getUserName());
-                row.createCell((short)5).setCellValue(activityExportVO.getUserPhone());
-                row.createCell((short)6).setCellValue(activityExportVO.getBuyNumber());
+                row.createCell((short) 0).setCellValue(activityExportVO.getStageName());
+                row.createCell((short) 1).setCellValue(activityExportVO.getGroupName());
+                row.createCell((short) 2).setCellValue(activityExportVO.getGoodName());
+                row.createCell((short) 3).setCellValue(activityExportVO.getUserId());
+                row.createCell((short) 4).setCellValue(activityExportVO.getUserName());
+                row.createCell((short) 5).setCellValue(activityExportVO.getUserPhone());
+                row.createCell((short) 6).setCellValue(activityExportVO.getBuyNumber());
+
+                int InfoSize = 0;
+                if (signupItems != null) {
+                    InfoSize = signupItems.size();
+                }
+
+                StringBuilder stringBuilder = new StringBuilder("");
+
+                if (InfoSize > 0) {
+                    for (int s = 0; s < InfoSize; s++) {
+                        for (SignTemplateInfo signTemplateInfo : activityExportVO.getSignTemplateInfos()) {
+                            if (signupItems.get(s).getName().equals(signTemplateInfo.getName())) {
+                                stringBuilder.append(signTemplateInfo.getAnswer() == null ? "" : signTemplateInfo.getAnswer());
+                            }
+                        }
+                        row.createCell((short) 6 + s + 1).setCellValue(stringBuilder.toString());
+                        stringBuilder = new StringBuilder("");
+                    }
+
+                }
                 i++;
             }
 
@@ -82,7 +107,7 @@ public class ExcelExportUtil {
         return null;
     }
 
-    public void fileChange(File file,HttpServletResponse response){
+    public void fileChange(File file, HttpServletResponse response) {
 
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
@@ -93,7 +118,7 @@ public class ExcelExportUtil {
 
             byte[] buff = new byte[10240];
             int bytesRead;
-            while(-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
                 bos.write(buff, 0, bytesRead);
             }
 
@@ -119,6 +144,7 @@ public class ExcelExportUtil {
         Row row = sheet.createRow(0);// 创建第一行,设置表的标题;
         row.setHeightInPoints(36);//设置行的高度是34个点
         Cell cell = row.createCell(0);
+
         cell.setCellValue(headTitle);
         cell.setCellStyle(style);
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, cols - 1));//第一行跨表所有列;
@@ -130,7 +156,7 @@ public class ExcelExportUtil {
      * @param book
      * @param sheet
      */
-    private static void createHead(Workbook book, Sheet sheet) {
+    private static void createHead(Workbook book, Sheet sheet, List<SignTemplateItem> signupItems) {
         // 设置单元格格式(文本)
         // 第二行为表头行
         String title = "";
@@ -138,7 +164,13 @@ public class ExcelExportUtil {
 
         Row row = sheet.createRow(1);// 创建第一行
         row.setHeightInPoints(25);//设置行的高度是20个点
-        for (int j = 0; j < cols; j++) {
+
+
+        int InfoSize = 0;
+        if (signupItems != null) {
+            InfoSize = signupItems.size();
+        }
+        for (int j = 0; j < cols + InfoSize; j++) {
             //sheet.autoSizeColumn((short)j);
             Cell cell = row.createCell(j);
             //cell.setCellType(HSSFCell.CELL_TYPE_STRING);
@@ -162,6 +194,13 @@ public class ExcelExportUtil {
             }
             if (j == 6) {
                 title = "购买次数";
+            }
+            if (signupItems != null) {
+                for (int a = 0; a < InfoSize; a++) {
+                    if (j == 6 + a + 1) {
+                        title = signupItems.get(a).getName();
+                    }
+                }
             }
             cell.setCellValue(title);
             cell.setCellStyle(style);

@@ -447,7 +447,7 @@ public class ActivityController {
                         /**
                          * 生成Excel文件
                          */
-                        File file = excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name);
+                        File file = excelExportUtil.exportTaskSumPoi(activityRegistrationExportVOS, name,activityVO.getSignupItems());
 
                         bis = new BufferedInputStream(new FileInputStream(file));
                         ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
