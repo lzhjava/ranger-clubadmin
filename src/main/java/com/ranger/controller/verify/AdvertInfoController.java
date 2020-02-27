@@ -41,6 +41,7 @@ public class AdvertInfoController {
      */
     @GetMapping("/getVisitNumbe")
     public ResultVO selectByAdvertVisitNumber(@RequestParam(required = true) Long distributorId) {
+        
         return advertInfoContract.selectByAdvertVisitNumber(distributorId);
     }
 
