@@ -28,7 +28,6 @@ public class AdvertInfoController {
     /**
      * 用户预留广告信息
      *
-     *
      * @param advertInfoDTO
      * @return
      */
@@ -125,5 +124,16 @@ public class AdvertInfoController {
         return advertInfoContract.selectByDistributorId(distributorId, page, size, dayStartTime, dayEndTime);
     }
 
+    /**
+     * 账户校验
+     *
+     * @param account
+     * @return
+     */
+    @GetMapping("/accountChecking")
+    public ResultVO selectByDistributorIdAndHashId(@RequestParam(required = true) String account,
+                                                   @RequestParam(required = true) String password) {
+        return advertInfoContract.accountChecking(account, password);
+    }
 
 }
