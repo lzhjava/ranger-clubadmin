@@ -442,7 +442,7 @@ public class ActivityController {
                     String path = "";
                     ActivityVO activityVO = (ActivityVO) resultVOActivityVO.getBody();
                     String name = activityVO.getActivityName();
-                    Key = Key + name + ".xlsx";
+                    Key = Key + name + ".xls";
                     try {
                         /**
                          * 生成Excel文件

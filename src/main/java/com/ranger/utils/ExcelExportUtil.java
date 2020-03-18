@@ -64,13 +64,15 @@ public class ExcelExportUtil {
             int i = 0;
             for (ActivityRegistrationExportVO activityExportVO : ExportVOS) {
                 Row row = sheet.createRow(start + i);
+
+
                 row.createCell((short) 0).setCellValue(activityExportVO.getStageName());
                 row.createCell((short) 1).setCellValue(activityExportVO.getGroupName());
                 row.createCell((short) 2).setCellValue(activityExportVO.getGoodName());
                 row.createCell((short) 3).setCellValue(activityExportVO.getUserId());
                 row.createCell((short) 4).setCellValue(activityExportVO.getUserName());
-                row.createCell((short) 5).setCellValue(activityExportVO.getUserPhone());
-                row.createCell((short) 6).setCellValue(activityExportVO.getBuyNumber());
+                //row.createCell((short) 5).setCellValue(activityExportVO.getUserPhone());
+                row.createCell((short) 5).setCellValue(activityExportVO.getBuyNumber());
 
                 int InfoSize = 0;
                 if (signupItems != null) {
@@ -86,7 +88,7 @@ public class ExcelExportUtil {
                                 stringBuilder.append(signTemplateInfo.getAnswer() == null ? "" : signTemplateInfo.getAnswer());
                             }
                         }
-                        row.createCell((short) 6 + s + 1).setCellValue(stringBuilder.toString());
+                        row.createCell((short) 5 + s + 1).setCellValue(stringBuilder.toString());
                         stringBuilder = new StringBuilder("");
                     }
 
@@ -94,7 +96,7 @@ public class ExcelExportUtil {
                 i++;
             }
 
-            File outFile = new File("活动报名人员类别导出.xlsx");
+            File outFile = new File("活动报名人员类别导出.xls");
             FileOutputStream fout = new FileOutputStream(outFile);
             book.write(fout);
             fout.close();
@@ -188,15 +190,15 @@ public class ExcelExportUtil {
             if (j == 4) {
                 title = "用户姓名";
             }
-            if (j == 5) {
+           /* if (j == 5) {
                 title = "用户手机号";
-            }
-            if (j == 6) {
+            }*/
+            if (j == 5) {
                 title = "购买次数";
             }
             if (signupItems != null) {
                 for (int a = 0; a < InfoSize; a++) {
-                    if (j == 6 + a + 1) {
+                    if (j == 5 + a + 1) {
                         title = signupItems.get(a).getName();
                     }
                 }
