@@ -49,6 +49,12 @@ public class ExcelExportUtil {
             // 在Excel工作薄中建一张工作表;
             String sheetTitle = activityName;
             HSSFSheet sheet = book.createSheet(sheetTitle);
+
+            int InfoSize = 0;
+            if (signupItems != null) {
+                InfoSize = signupItems.size();
+                cols=cols+InfoSize;
+            }
             //设置标题和表头;
             createTitle(book, sheet, headTitle);
 
@@ -74,10 +80,7 @@ public class ExcelExportUtil {
                 //row.createCell((short) 5).setCellValue(activityExportVO.getUserPhone());
                 row.createCell((short) 5).setCellValue(activityExportVO.getBuyNumber());
 
-                int InfoSize = 0;
-                if (signupItems != null) {
-                    InfoSize = signupItems.size();
-                }
+
 
                 StringBuilder stringBuilder = new StringBuilder("");
 
@@ -171,7 +174,7 @@ public class ExcelExportUtil {
         if (signupItems != null) {
             InfoSize = signupItems.size();
         }
-        for (int j = 0; j < cols + InfoSize; j++) {
+        for (int j = 0; j < 6 + InfoSize; j++) {
             //sheet.autoSizeColumn((short)j);
             Cell cell = row.createCell(j);
             //cell.setCellType(HSSFCell.CELL_TYPE_STRING);
