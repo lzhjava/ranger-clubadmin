@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class ExcelExportUtil {
 
-    public static int cols = 7;//excel里表格列
+    public static int cols = 6;//excel里表格列
 
 
     /**
