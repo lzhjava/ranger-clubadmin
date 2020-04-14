@@ -35,7 +35,7 @@ public class PhotoController {
      */
     @PostMapping("/{relevanceId}")
     public ResultVO createAlbm(@PathVariable Long relevanceId,
-                               @RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
+                               @RequestHeader(value = "userId", required = false, defaultValue = "0") Long userId,
                                @RequestParam String name,
                                @RequestParam(defaultValue = "1") Integer type) {
         return photoContract.createAlbm(relevanceId, userId, name, type);
@@ -53,7 +53,7 @@ public class PhotoController {
      */
     @PutMapping("/{albumId}")
     public ResultVO modifyAlbumName(@PathVariable Long albumId,
-                                    @RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
+                                    @RequestHeader(value = "userId", required = false, defaultValue = "0") Long userId,
                                     @RequestParam Long relevanceId,
                                     @RequestParam String name) {
         return photoContract.modifyAlbumName(albumId, userId, relevanceId, name);
@@ -70,7 +70,7 @@ public class PhotoController {
      */
     @DeleteMapping("/{albumId}")
     public ResultVO delAlbum(@PathVariable Long albumId,
-                             @RequestParam(value = "userId", required = false, defaultValue = "0") Long userId) {
+                             @RequestHeader(value = "userId", required = false, defaultValue = "0") Long userId) {
         return photoContract.delAlbum(albumId, userId);
     }
 
@@ -138,7 +138,7 @@ public class PhotoController {
      */
     @PostMapping("/photo/{relevanceId}/{albumId}")
     public ResultVO addPhoto(@PathVariable Long relevanceId, @PathVariable Long albumId,
-                             @RequestParam(value = "userId", required = false, defaultValue = "0") Long userId,
+                             @RequestHeader(value = "userId", required = false, defaultValue = "0") Long userId,
                              @RequestBody PhotoPO photoPO) {
         photoPO.setUserId(userId);
         return photoContract.addPhoto(relevanceId, albumId, photoPO);
@@ -150,13 +150,11 @@ public class PhotoController {
      *
      * @param photoId 照片id
      * @param albumId 相册id
-     * @param userId  用户id
      * @return
      */
     @DeleteMapping("/photo/{albumId}/{photoId}")
-    public ResultVO delPhoto(@PathVariable Long photoId, @PathVariable Long albumId,
-                             @RequestParam(value = "userId", required = false, defaultValue = "0") Long userId) {
-        return photoContract.delPhoto(photoId, albumId, userId);
+    public ResultVO delPhoto(@PathVariable Long photoId, @PathVariable Long albumId) {
+        return photoContract.clubDelPhoto(photoId, albumId);
     }
 
 
