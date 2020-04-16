@@ -27,7 +27,7 @@ public class EquipRecommendController {
     @PostMapping("")
     public ResultVO addActivityRecommend(@RequestParam Long equipId,
                                          @RequestParam Long clubId,
-                                         @RequestParam Double position) {
+                                         (@RequestParam(value = "position", required = false, defaultValue = "0") Double position) {
         return equipRecommendContract.insert(equipId, clubId, position);
     }
 
